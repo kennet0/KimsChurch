@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10"
+        android:layout_weight="10"
+        android:layout_marginTop="30dp"
+        >
+
+        <EditText
+            android:id="@+id/txtSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="61dp"
+            android:layout_weight="8"
+            android:hint="이름 / 사랑방 검색"></EditText>
+
+        <Button
+            android:id="@+id/btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="61dp"
+            android:layout_weight="2"
+            android:text="검 색"
+            android:textSize="20dp"></Button>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnYouth"
+        android:layout_width="231dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:text="청  년"
+        android:textSize="40dp"
+        android:layout_weight="40"
+        android:layout_margin="25dp"
+        >
+    </Button>
+    <Button
+        android:id="@+id/btnSenier"
+        android:layout_width="231dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center"
+        android:text="장  년"
+        android:textSize="40dp"
+        android:layout_weight="40"
+        android:layout_margin="25dp"
+        >
+    </Button>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="10">
+        <Button
+            android:id="@+id/btnInsertMember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="교인\n입력"
+            android:textSize="30dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="30dp"
+            >
+
+        </Button>
+        <Button
+            android:id="@+id/btnFindMember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="교인찾기 \n (가나다순)"
+            android:textSize="30dp"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="30dp"
+            >
+
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>
