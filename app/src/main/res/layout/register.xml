@@ -15,6 +15,12 @@
             android:textSize="30dp"
             android:layout_gravity="center">
         </TextView>
+        <ImageView
+            android:id="@+id/imgView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+        </ImageView>
 
         <!-- 이름 입력 -->
         <LinearLayout
@@ -34,9 +40,18 @@
                 android:id="@+id/txtName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="95"
+                android:layout_weight="65"
                 >
             </EditText>
+            <Button
+                android:id="@+id/imgMember"
+                android:text="Image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="30"
+                >
+
+            </Button>
         </LinearLayout>
 
         <!--직분 라디오-->
@@ -48,30 +63,35 @@
             android:layout_marginTop="20dp">
         </TextView>
         <RadioGroup
-            android:id="@+id/txtPosition"
+            android:id="@+id/rgPosition"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="100">
             <RadioButton
+                android:id="@+id/rbLayman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:checked="true"
                 android:text="성도"
                 android:layout_weight="25">
             </RadioButton>
             <RadioButton
+                android:id="@+id/rbDecon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="집사"
                 android:layout_weight="25">
             </RadioButton>
             <RadioButton
+                android:id="@+id/rbSeniorDecon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="권사"
                 android:layout_weight="25">
             </RadioButton>
             <RadioButton
+                android:id="@+id/rbElder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="장로"
@@ -88,18 +108,21 @@
             android:layout_marginTop="20dp">
         </TextView>
         <RadioGroup
-            android:id="@+id/department"
+            android:id="@+id/rgDepartment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="50">
             <RadioButton
+                android:id="@+id/rbYouth"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="청년"
+                android:checked="true"
                 android:layout_weight="25">
             </RadioButton>
             <RadioButton
+                android:id="@+id/rbSenior"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="장년"
@@ -116,27 +139,31 @@
             android:layout_marginTop="20dp">
         </TextView>
         <RadioGroup
-            android:id="@+id/part"
+            android:id="@+id/rgPart"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="60">
             <RadioButton
+                android:id="@+id/rbMinister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="임원"
                 android:layout_weight="20">
             </RadioButton>
             <RadioButton
+                android:id="@+id/rbLeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="목자"
                 android:layout_weight="20">
             </RadioButton>
             <RadioButton
+                android:id="@+id/rbMember"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="예원"
+                android:checked="true"
                 android:layout_weight="20">
             </RadioButton>
         </RadioGroup>
@@ -180,6 +207,7 @@
             android:layout_height="wrap_content"
             android:weightSum="50">
             <EditText
+                android:id="@+id/txtSRBName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="25"
@@ -187,6 +215,7 @@
             </EditText>
 
             <EditText
+                android:id="@+id/txtSRBLeader"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="25"
@@ -210,6 +239,7 @@
                 >
             </TextView>
             <EditText
+                android:id="@+id/txtWork"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="95"
@@ -233,6 +263,7 @@
                 >
             </TextView>
             <EditText
+                android:id="@+id/txtBirthday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="95"
@@ -304,6 +335,7 @@
                 >
             </TextView>
             <EditText
+                android:id="@+id/txtEtc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="95"

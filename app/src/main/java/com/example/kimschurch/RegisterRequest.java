@@ -8,13 +8,24 @@ import java.util.Map;
 
 class RegisterRequest extends StringRequest {
 
-    final static private String URL = "http://172.30.1.50/Register.php";
+    final static private String URL = "http://112.186.116.16:6011/Register.php";
     private Map<String, String>  parameters;
 
-    public RegisterRequest(String name, Response.Listener<String> listener){
+    public RegisterRequest(String name, String phone, String position, String department, String part, String srbName, String srbLeader,
+                           String work, String birthday, Response.Listener<String> listener){
+
         super(Method.POST, URL, listener, null);
         parameters = new HashMap<>();
         parameters.put("name", name);
+        parameters.put("phone", phone);
+        parameters.put("position", position);
+        parameters.put("department", department);
+        parameters.put("part", part);
+        parameters.put("srbName", srbName);
+        parameters.put("srbLeader", srbLeader);
+        parameters.put("work", work);
+        parameters.put("birthday", birthday);
+//        parameters.put("familyMemeber", familyMember);
 
     }
 
