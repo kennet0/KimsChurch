@@ -14,8 +14,12 @@ import android.widget.Toast;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
         btnInsertMember = findViewById(R.id.btnInsertMember);
         txtSearch = findViewById(R.id.txtSearch);
 
+
         // 교인등록버튼
         btnInsertMember.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,26 +56,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                searchName = txtSearch.getText().toString();
+                Log.e("searchName",searchName);
                 new BackgroundTask().execute();
-//                final String search=txtSearch.getText().toString();
-//                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-//                if(!search.isEmpty()) {
-//                    if (search.contains("/")) {
-//                        String[] arraySearch = search.split("/");
-//                        searchName = arraySearch[0];
-//                        searchSRBName = arraySearch[1];
-//                        intent.putExtra("checkValue", 1);
-//                        intent.putExtra("searchName", searchName);
-//                        intent.putExtra("searchSRBName", searchSRBName);
-//                        startActivity(intent);
-//                    } else {
-//                        intent.putExtra("checkValue" ,2);
-//                        intent.putExtra("search", search);
-//                        startActivity(intent);
-//                    }
-//                }else{
-//                    Toast.makeText(MainActivity.this, "입력하세요", Toast.LENGTH_SHORT).show();
-//                }
+
             }
         });
     }
@@ -91,19 +80,56 @@ public class MainActivity extends AppCompatActivity {
         protected String doInBackground(Void... voids) {
 
             try {
+
+                String body = "name=" + searchName;
                 URL url = new URL(target);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+                httpURLConnection.setRequestMethod("POST");
+                httpURLConnection.setDoInput(true);
+                httpURLConnection.setDoOutput(true);
+                httpURLConnection.setRequestProperty("Context-type","application/x-www-form-urlencoded");
+
+                OutputStream outputStream = httpURLConnection.getOutputStream();
+                outputStream.write(body.getBytes("UTF-8"));
+
+
                 InputStream inputStream = httpURLConnection.getInputStream();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+                outputStream.flush();
+                outputStream.close();
+
                 String temp;
                 StringBuilder stringBuilder = new StringBuilder();
                 while((temp = bufferedReader.readLine())!=null){
                     stringBuilder.append(temp + "\n");
                 }
+
+
                 bufferedReader.close();
                 inputStream.close();
+
                 httpURLConnection.disconnect();
+                Log.e("st.toString.trim",stringBuilder.toString().trim());
+
                 return stringBuilder.toString().trim();
+
+
+
+//                URL url = new URL(target);
+//                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
+//                InputStream inputStream = httpURLConnection.getInputStream();
+//                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+//                String temp;
+//                StringBuilder stringBuilder = new StringBuilder();
+//                while((temp = bufferedReader.readLine())!=null){
+//                    stringBuilder.append(temp + "\n");
+//                }
+//                bufferedReader.close();
+//                inputStream.close();
+//                httpURLConnection.disconnect();
+//                Log.e("st.toString.trim",stringBuilder.toString().trim());
+//                return stringBuilder.toString().trim();
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -118,8 +144,9 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onPostExecute(String result){
-            Intent intent =new Intent(MainActivity.this, SearchActivity.class);
-            intent.putExtra("userList", result);
+            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+            intent.putExtra("MemberList", result);
+            Log.e("result", result);
             startActivity(intent);
 
         }

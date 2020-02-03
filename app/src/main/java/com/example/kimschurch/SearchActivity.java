@@ -1,42 +1,63 @@
 package com.example.kimschurch;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
 
-//    ArrayList<MemberDTO> memberDTOS = new ArrayList<>();
+    private ListView listView;
+    private MemberListAdapter memberListAdapter;
+    private List<MemberDTO> memberDTOList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.search_layout);
 
+        listView = findViewById(R.id.list_view);
+        memberDTOList = new ArrayList<>();
+
+        Intent intent = getIntent();
+
+        memberListAdapter = new MemberListAdapter(getApplicationContext(),memberDTOList);
+        listView.setAdapter(memberListAdapter);
+
+        try {
+            JSONObject jsonObject = new JSONObject(intent.getStringExtra("MemberList"));
+            Log.e("jsonObject", jsonObject.toString());
+            JSONArray jsonArray = jsonObject.getJSONArray("response");
+            int count = 0 ;
+            String name, srbName, position, department, part, phone;
+            while (count < jsonArray.length()){
+                JSONObject object = jsonArray.getJSONObject(count);
+                name = object.getString("name");
+                srbName = object.getString("srbName");
+                position = object.getString("position");
+                department = object.getString("department");
+                part = object.getString("part");
+                phone = object.getString("phone");
+                memberDTOList.add(new MemberDTO(name,phone,position,department,part,srbName));
+                count++;
+            }
 
 
-
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 /////////////////////////////////////////////////////////////////////////////
 //        if (getIntent().getIntExtra("checkValue",1)==1) {

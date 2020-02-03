@@ -2,6 +2,7 @@ package com.example.kimschurch;
 
 public class MemberDTO {
 
+    private int pnum;
     private String name;
     private String phone;
     private String position;
@@ -11,6 +12,23 @@ public class MemberDTO {
     private String srbLeader;
     private String work;
     private String birthday;
+
+    public MemberDTO(String name, String phone, String position, String department, String part, String srbName) {
+        this.name = name;
+        this.phone = phone;
+        this.position = position;
+        this.department = department;
+        this.part = part;
+        this.srbName = srbName;
+    }
+
+    public int getPnum() {
+        return pnum;
+    }
+
+    public void setPnum(int pnum) {
+        this.pnum = pnum;
+    }
 
     public String getName() {
         return name;
