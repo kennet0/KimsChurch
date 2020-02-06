@@ -5,6 +5,10 @@ public class MemberDTO {
     private int pnum;
     private String name;
     private String phone;
+    private String picture;
+
+
+
     private String position;
     private String department;
     private String part;
@@ -13,9 +17,10 @@ public class MemberDTO {
     private String work;
     private String birthday;
 
-    public MemberDTO(String name, String phone, String position, String department, String part, String srbName) {
+    public MemberDTO(String name, String phone, String picture, String position, String department, String part, String srbName) {
         this.name = name;
         this.phone = phone;
+        this.picture = picture;
         this.position = position;
         this.department = department;
         this.part = part;
@@ -44,6 +49,14 @@ public class MemberDTO {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     public String getPosition() {

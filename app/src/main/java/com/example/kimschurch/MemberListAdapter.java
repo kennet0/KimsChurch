@@ -1,12 +1,14 @@
 package com.example.kimschurch;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
 import java.util.List;
 
 public class MemberListAdapter extends BaseAdapter{
@@ -44,15 +46,8 @@ public class MemberListAdapter extends BaseAdapter{
         TextView department = v.findViewById(R.id.rs_department);
         TextView part = v.findViewById(R.id.rs_part);
         TextView phone = v.findViewById(R.id.rs_phone);
-
-        imageView.setImageResource(R.drawable.jhan);
-
-        BitMapToString bitMapToString = new BitMapToString();
-
-//        Drawable drawable =
-//        bitMapToString.getByteArrayFromDrawable();
-
-
+        ImageProcess.LoadImage imageProcess = new ImageProcess.LoadImage(imageView);
+        imageProcess.execute("http://172.30.1.50/upload/jans01098561121.png");
 
 
         name.setText(memberDTOList.get(i).getName());
@@ -66,4 +61,5 @@ public class MemberListAdapter extends BaseAdapter{
 
         return v;
     }
+
 }

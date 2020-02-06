@@ -41,16 +41,17 @@ public class SearchActivity extends AppCompatActivity {
             Log.e("jsonObject", jsonObject.toString());
             JSONArray jsonArray = jsonObject.getJSONArray("response");
             int count = 0 ;
-            String name, srbName, position, department, part, phone;
+            String name, srbName, position, picture, department, part, phone;
             while (count < jsonArray.length()){
                 JSONObject object = jsonArray.getJSONObject(count);
                 name = object.getString("name");
                 srbName = object.getString("srbName");
+                picture = object.getString("picture");
                 position = object.getString("position");
                 department = object.getString("department");
                 part = object.getString("part");
                 phone = object.getString("phone");
-                memberDTOList.add(new MemberDTO(name,phone,position,department,part,srbName));
+                memberDTOList.add(new MemberDTO(name, phone, picture, position,department,part,srbName));
                 count++;
             }
 
