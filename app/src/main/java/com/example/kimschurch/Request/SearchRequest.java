@@ -1,4 +1,4 @@
-package com.example.kimschurch;
+package com.example.kimschurch.Request;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
@@ -6,7 +6,7 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-class SearchRequest extends StringRequest {
+public class SearchRequest extends StringRequest {
 
     final static private String URL = "http://112.186.116.16:6011/Search.php";
     private Map<String, String>  parameters;

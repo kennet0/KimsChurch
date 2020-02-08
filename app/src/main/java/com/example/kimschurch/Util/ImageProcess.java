@@ -1,28 +1,13 @@
-package com.example.kimschurch;
+package com.example.kimschurch.Util;
 
-import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Base64;
-import android.util.Log;
-import android.widget.ImageView;
-
-import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.MultipartBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 
 public class ImageProcess {
@@ -89,7 +74,6 @@ public class ImageProcess {
             this.imageView = ivResult;
         }
 
-
         @Override
         protected Bitmap doInBackground(String... strings) {
             String urlLink = strings[0];
@@ -105,6 +89,7 @@ public class ImageProcess {
 
         @Override
         protected void onPostExecute(Bitmap bitmap) {
+
             imageView.setImageBitmap(bitmap);
         }
     }

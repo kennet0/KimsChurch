@@ -1,14 +1,11 @@
-package com.example.kimschurch;
+package com.example.kimschurch.Util;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
+import com.example.kimschurch.R;
 import java.util.List;
 
 public class MemberListAdapter extends BaseAdapter{
@@ -37,17 +34,19 @@ public class MemberListAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int i, View view, ViewGroup viewGroup) {
-        View v = View.inflate(context, R.layout.search_list_layout,null);
-        de.hdodenhof.circleimageview.CircleImageView imageView = v.findViewById(R.id.circle_image);
-        TextView name = v.findViewById(R.id.rs_name);
-        TextView srbName = v.findViewById(R.id.rs_srbName);
-        TextView position = v.findViewById(R.id.rs_position);
-        TextView department = v.findViewById(R.id.rs_department);
-        TextView part = v.findViewById(R.id.rs_part);
-        TextView phone = v.findViewById(R.id.rs_phone);
+    public View getView(final int i, View view, ViewGroup viewGroup) {
+        View search_list_view = View.inflate(context, R.layout.search_list_layout,null);
+        de.hdodenhof.circleimageview.CircleImageView imageView = search_list_view.findViewById(R.id.circle_image);
+        TextView name = search_list_view.findViewById(R.id.rs_name);
+        TextView srbName = search_list_view.findViewById(R.id.rs_srbName);
+        TextView position = search_list_view.findViewById(R.id.rs_position);
+        TextView department = search_list_view.findViewById(R.id.rs_department);
+        TextView part = search_list_view.findViewById(R.id.rs_part);
+        TextView phone = search_list_view.findViewById(R.id.rs_phone);
+
         ImageProcess.LoadImage imageProcess = new ImageProcess.LoadImage(imageView);
-        imageProcess.execute("http://172.30.1.50/upload/jans01098561121.png");
+        imageProcess.execute("http://112.186.116.16:6011/upload/" +
+                memberDTOList.get(i).getPnum() + ".png");
 
 
         name.setText(memberDTOList.get(i).getName());
@@ -57,9 +56,11 @@ public class MemberListAdapter extends BaseAdapter{
         part.setText(memberDTOList.get(i).getPart());
         phone.setText(memberDTOList.get(i).getPhone());
 
-        v.setTag(memberDTOList.get(i).getName());
+        search_list_view.setTag(memberDTOList.get(i).getName());
 
-        return v;
+
+
+        return search_list_view;
     }
 
 }

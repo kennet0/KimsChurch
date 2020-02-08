@@ -1,14 +1,12 @@
-package com.example.kimschurch;
+package com.example.kimschurch.Util;
 
 public class MemberDTO {
 
-    private int pnum;
+
+    private String pnum;
     private String name;
     private String phone;
     private String picture;
-
-
-
     private String position;
     private String department;
     private String part;
@@ -16,8 +14,10 @@ public class MemberDTO {
     private String srbLeader;
     private String work;
     private String birthday;
+    private String etc;
 
-    public MemberDTO(String name, String phone, String picture, String position, String department, String part, String srbName) {
+    public MemberDTO(String  pnum, String name, String phone, String picture, String position, String department, String part, String srbName, String srbLeader, String work, String birthday, String etc) {
+        this.pnum = pnum;
         this.name = name;
         this.phone = phone;
         this.picture = picture;
@@ -25,13 +25,17 @@ public class MemberDTO {
         this.department = department;
         this.part = part;
         this.srbName = srbName;
+        this.srbLeader = srbLeader;
+        this.work = work;
+        this.birthday = birthday;
+        this.etc = etc;
     }
 
-    public int getPnum() {
+    public String getPnum() {
         return pnum;
     }
 
-    public void setPnum(int pnum) {
+    public void setPnum(String pnum) {
         this.pnum = pnum;
     }
 
@@ -114,4 +118,13 @@ public class MemberDTO {
     public void setBirthday(String birthday) {
         this.birthday = birthday;
     }
+
+    public String getEtc() {
+        return etc;
+    }
+
+    public void setEtc(String etc) {
+        this.etc = etc;
+    }
+
 }

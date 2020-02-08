@@ -1,4 +1,4 @@
-package com.example.kimschurch;
+package com.example.kimschurch.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.kimschurch.R;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -20,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnSearch, btnYouth ,btnSenior,btnFindMember,btnInsertMember;
     EditText txtSearch;
-    String searchName, searchSRBName;
+    String searchName, searchSRBName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,9 +55,17 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 searchName = txtSearch.getText().toString();
-                Log.e("searchName",searchName);
                 new BackgroundTask().execute();
 
+            }
+        });
+
+        // 교인찾기 버튼
+        btnFindMember.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchName = "";
+                new BackgroundTask().execute();
             }
         });
     }
@@ -100,31 +111,12 @@ public class MainActivity extends AppCompatActivity {
                     stringBuilder.append(temp + "\n");
                 }
 
-
                 bufferedReader.close();
                 inputStream.close();
 
                 httpURLConnection.disconnect();
-                Log.e("st.toString.trim",stringBuilder.toString().trim());
-
                 return stringBuilder.toString().trim();
 
-
-
-//                URL url = new URL(target);
-//                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-//                InputStream inputStream = httpURLConnection.getInputStream();
-//                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-//                String temp;
-//                StringBuilder stringBuilder = new StringBuilder();
-//                while((temp = bufferedReader.readLine())!=null){
-//                    stringBuilder.append(temp + "\n");
-//                }
-//                bufferedReader.close();
-//                inputStream.close();
-//                httpURLConnection.disconnect();
-//                Log.e("st.toString.trim",stringBuilder.toString().trim());
-//                return stringBuilder.toString().trim();
 
             } catch (Exception e) {
                 e.printStackTrace();

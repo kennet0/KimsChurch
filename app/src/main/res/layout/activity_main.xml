@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="61dp"
             android:layout_weight="8"
-            android:hint="이름 / 사랑방 검색"></EditText>
+            android:hint="이름 / 사랑방."></EditText>
 
         <Button
             android:id="@+id/btnSearch"
