@@ -94,52 +94,5 @@ public class SearchActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
-
-/////////////////////////////////////////////////////////////////////////////
-//        if (getIntent().getIntExtra("checkValue",1)==1) {
-
-//            Response.Listener<String> responseListener = new Response.Listener<String>(){
-//
-//                @Override
-//                public void onResponse(String response) {
-//                    try{
-//                        JSONArray jsonArray = new JSONArray(response);
-//                        Log.e("before","for");
-//                        for (int i=0;i<jsonArray.length();i++) {
-//                            MemberDTO memberDTO = new MemberDTO();
-//                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-//
-//                            memberDTO.setName(jsonObject.getString("name"));
-//                            memberDTO.setPhone(jsonObject.getString("phone"));
-//                            memberDTO.setPosition(jsonObject.getString("position"));
-//                            memberDTO.setDepartment(jsonObject.getString("department"));
-//
-//                            memberDTOS.add(memberDTO);
-//                        }
-//
-//
-//
-//                    }catch (Exception e){
-//                        e.printStackTrace();
-//                    }
-//                }
-//            };
-
-//            SearchRequest searchRequest = new SearchRequest(getIntent().getStringExtra("searchName"),
-//                                                        getIntent().getStringExtra("searchSRBName"), responseListener);
-//            RequestQueue queue = Volley.newRequestQueue(SearchActivity.this);
-//            queue.add(searchRequest);
-//
-//            RecyclerView view = findViewById(R.id.search_recyclerview);
-//            RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
-//
-//            MyRecyclerViewAdapter myRecyclerViewAdapter = new MyRecyclerViewAdapter(memberDTOS);
-//
-//            view.setLayoutManager(layoutManager);
-//            view.setAdapter(myRecyclerViewAdapter);
-
-//        }
-
     }
 }

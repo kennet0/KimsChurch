@@ -6,17 +6,16 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SearchRequest extends StringRequest {
+public class RemoveRequest extends StringRequest {
 
-    final static private String URL = "http://112.186.116.16:6011/Search.php";
+    final static private String URL = "http://112.186.116.16:6011/Remove.php";
     private Map<String, String>  parameters;
 
-    public SearchRequest(String name, String srbName, Response.Listener<String> listener){
+    public RemoveRequest(String pnum,  Response.Listener<String> listener){
 
         super(Method.POST, URL, listener, null);
         parameters = new HashMap<>();
-        parameters.put("name", name);
-        parameters.put("srbName", srbName);
+        parameters.put("pnum", pnum);
 
     }
 

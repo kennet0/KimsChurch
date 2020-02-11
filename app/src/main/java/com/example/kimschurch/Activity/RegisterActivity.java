@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.example.kimschurch.Request.RemoveRequest;
 import com.example.kimschurch.Util.ImageProcess;
 import com.example.kimschurch.R;
 import com.example.kimschurch.Request.RegisterRequest;
@@ -56,11 +57,17 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText txtWork = findViewById(R.id.txtWork);
         final EditText txtBirthday = findViewById(R.id.txtBirthday);
         final EditText txtEtc = findViewById(R.id.txtEtc);
+        Button btnImage = findViewById(R.id.btnImage);
+        Button btnRegister = findViewById(R.id.btnRegister);
+        Button btnRemove = findViewById(R.id.btnRemove);
+        btnRemove.setVisibility(View.GONE);
 
         String intentPnum = null;
 
+
         if((getIntent().hasExtra("name"))){
              intentPnum = getIntent().getStringExtra("pnum");
+             final String removePnum = intentPnum ;
             String intentName = getIntent().getStringExtra("name");
             String intentPhone = getIntent().getStringExtra("phone");
             String intentPosition = getIntent().getStringExtra("position");
@@ -128,11 +135,44 @@ public class RegisterActivity extends AppCompatActivity {
             if (!(intentEtc.equals("null"))){
                 txtEtc.setText(intentEtc);
             }
+            btnRemove.setVisibility(View.VISIBLE);
+            btnRemove.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try{
+                                JSONObject jsonResponse = new JSONObject(response);
+                                Log.e("response",jsonResponse.toString());
+                                boolean success = jsonResponse.getBoolean("success");
+                                if(success){
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                    builder.setMessage("삭제성공").setPositiveButton("확인",null).create().show();
+                                    Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                    startActivity(intent);
+                                }else{
+                                    Toast.makeText(RegisterActivity.this, "삭제실패", Toast.LENGTH_SHORT).show();
+                                }
+                            }catch (JSONException e){
+                                e.printStackTrace();
+                            }
+                        }
+                    };
+
+                    RemoveRequest removeRequest = new RemoveRequest(removePnum, responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+                    queue.add(removeRequest);
+
+                }
+            });
+
 
         }
         final String pnum = intentPnum;
 
-        Button btnImage = findViewById(R.id.btnImage);
+
         btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,7 +183,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        Button btnRegister = findViewById(R.id.btnRegister);
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -157,8 +197,6 @@ public class RegisterActivity extends AppCompatActivity {
                 String work = txtWork.getText().toString();
                 String birthday = txtBirthday.getText().toString();
                 String etc = txtEtc.getText().toString();
-
-
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
@@ -180,12 +218,16 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     }
                 };
+
                 RegisterRequest registerRequest =
                         new RegisterRequest(image, pnum, name, phone, position, department, part, srbName, srbLeader, work, birthday,etc, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(registerRequest);
             }
         });
+
+
+
     }
 
     @Override
