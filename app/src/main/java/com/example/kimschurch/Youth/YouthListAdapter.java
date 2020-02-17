@@ -1,6 +1,7 @@
 package com.example.kimschurch.Youth;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -42,13 +43,31 @@ public class YouthListAdapter extends BaseAdapter {
         View youth_list = View.inflate(context, R.layout.youth_list, null);
 
         TextView att_name = youth_list.findViewById(R.id.att_name);
-        CheckBox chb_att1 = youth_list.findViewById(R.id.chb_att1);
+        final CheckBox chb_att1 = youth_list.findViewById(R.id.chb_att1);
         CheckBox chb_att2 = youth_list.findViewById(R.id.chb_att2);
         CheckBox chb_att_srb = youth_list.findViewById(R.id.chb_att_srb);
         CheckBox chb_att_train = youth_list.findViewById(R.id.chb_att_train);
         CheckBox chb_att_visit = youth_list.findViewById(R.id.chb_att_visit);
 
+        chb_att1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(chb_att1.isChecked()){
+
+
+                }else {
+                    Log.e("checkbox","unchecked");
+                }
+
+
+
+            }
+        });
+
         att_name.setText(youthDTOList.get(i).getName());
+
+
+
         youth_list.setTag(youthDTOList.get(i).getName());
 
         return youth_list;
