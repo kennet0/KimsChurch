@@ -1,7 +1,8 @@
-package com.example.kimschurch.Activity;
+package com.example.kimschurch.Search;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -9,8 +10,8 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.example.kimschurch.Register.RegisterActivity;
 import com.example.kimschurch.Util.MemberDTO;
-import com.example.kimschurch.Util.MemberListAdapter;
 import com.example.kimschurch.R;
 
 import org.json.JSONArray;
@@ -31,17 +32,16 @@ public class SearchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_layout);
+        setContentView(R.layout.activity_search);
 
-        listView = findViewById(R.id.list_view);
+        listView = findViewById(R.id.list_search);
         memberDTOList = new ArrayList<>();
 
-        final Intent intent = getIntent();
-
-
         memberListAdapter = new MemberListAdapter(getApplicationContext(),memberDTOList);
+
         listView.setAdapter(memberListAdapter);
 
+        //수정 RegisterActivity로 넘기는 값
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
@@ -60,12 +60,13 @@ public class SearchActivity extends AppCompatActivity {
                clickIntent.putExtra("etc", memberDTOList.get(i).getEtc());
 
                startActivity(clickIntent);
-
             }
         });
 
+        //MainActivity에서 인텐트로 넘어온 jsonArray
+        final Intent intent = getIntent();
         try {
-            JSONObject jsonObject = new JSONObject(intent.getStringExtra("MemberList"));
+            JSONObject jsonObject = new JSONObject(intent.getStringExtra("result"));
             JSONArray jsonArray = jsonObject.getJSONArray("response");
 
             int count = 0 ;
@@ -88,7 +89,6 @@ public class SearchActivity extends AppCompatActivity {
                memberDTOList.add(new MemberDTO(pnum, name, phone, picture, position, department, part, srbName, srbLeader, work, birthday, etc));
                 count++;
             }
-
 
         } catch (JSONException e) {
             e.printStackTrace();

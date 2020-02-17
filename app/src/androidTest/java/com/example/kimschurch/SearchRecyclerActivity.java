@@ -9,7 +9,7 @@ public class SearchRecyclerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.search_list_layout);
+        setContentView(R.layout.search_list);
 
     }
 

@@ -1,7 +1,8 @@
-package com.example.kimschurch.Activity;
+package com.example.kimschurch.Main;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,7 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.kimschurch.Register.RegisterActivity;
+import com.example.kimschurch.Search.SearchActivity;
 import com.example.kimschurch.R;
+import com.example.kimschurch.Youth.YouthActivity;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -38,13 +42,25 @@ public class MainActivity extends AppCompatActivity {
         txtSearch = findViewById(R.id.txtSearch);
 
 
+        btnYouth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+              Intent intent = new Intent(MainActivity.this, YouthActivity.class);
+              startActivity(intent);
+
+            }
+        });
+
+
+
         // 교인등록버튼
         btnInsertMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(
                         MainActivity.this, RegisterActivity.class);
-                MainActivity.this.startActivity(intent);
+               startActivity(intent);
             }
         });
 
@@ -55,7 +71,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 searchName = txtSearch.getText().toString();
-                new BackgroundTask().execute();
+                String body = "name=" + searchName;
+                String url = "http://112.186.116.16:6011/Search.php";
+                new BackgroundTask(url,SearchActivity.class, body).execute();
 
             }
         });
@@ -65,29 +83,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 searchName = "";
-                new BackgroundTask().execute();
+                String body = "name=" + searchName;
+                String url = "http://112.186.116.16:6011/Search.php";
+                new BackgroundTask(url,SearchActivity.class, body).execute();
             }
         });
     }
 
 
-
-
     class BackgroundTask extends AsyncTask<Void,Void,String> {
         String target;
+        Class context;
+        String body;
 
-        @Override
-        protected void onPreExecute(){
-            target = "http://112.186.116.16:6011/Search.php";
+        public BackgroundTask(String target, Class context, String body) {
+            this.target = target;
+            this.context = context;
+            this.body = body;
         }
 
-
         @Override
-        protected String doInBackground(Void... voids) {
+        public String doInBackground(Void... voids) {
 
             try {
-
-                String body = "name=" + searchName;
                 URL url = new URL(target);
                 HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
@@ -131,8 +149,8 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onPostExecute(String result){
-            Intent intent = new Intent(MainActivity.this, SearchActivity.class);
-            intent.putExtra("MemberList", result);
+            Intent intent = new Intent(MainActivity.this, context);
+            intent.putExtra("result", result);
             Log.e("result", result);
             startActivity(intent);
 

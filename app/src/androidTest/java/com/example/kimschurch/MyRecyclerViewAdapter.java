@@ -26,7 +26,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //XML
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.search_layout,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_search,parent,false);
 
         return new RowCell(view);
     }

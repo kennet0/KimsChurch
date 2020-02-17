@@ -1,4 +1,4 @@
-package com.example.kimschurch.Util;
+package com.example.kimschurch.Search;
 
 import android.content.Context;
 import android.view.View;
@@ -6,6 +6,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 import com.example.kimschurch.R;
+import com.example.kimschurch.Util.ImageProcess;
+import com.example.kimschurch.Util.MemberDTO;
+
 import java.util.List;
 
 public class MemberListAdapter extends BaseAdapter{
@@ -35,7 +38,7 @@ public class MemberListAdapter extends BaseAdapter{
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
-        View search_list_view = View.inflate(context, R.layout.search_list_layout,null);
+        View search_list_view = View.inflate(context, R.layout.search_list,null);
         de.hdodenhof.circleimageview.CircleImageView imageView = search_list_view.findViewById(R.id.circle_image);
         TextView name = search_list_view.findViewById(R.id.rs_name);
         TextView srbName = search_list_view.findViewById(R.id.rs_srbName);
