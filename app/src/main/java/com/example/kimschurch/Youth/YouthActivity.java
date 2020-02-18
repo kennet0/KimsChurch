@@ -35,8 +35,6 @@ public class YouthActivity extends AppCompatActivity {
 
     private FragmentPagerAdapter fragmentPagerAdapter;
     private String date;
-    private List<YouthDTO> youthDTOList;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

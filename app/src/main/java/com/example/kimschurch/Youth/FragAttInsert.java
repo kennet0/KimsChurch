@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ public class FragAttInsert extends Fragment {
     private List<YouthDTO> youthDTOList;
     private YouthListAdapter youthListAdapter;
     private String weekCheck ="";
+    private String intentDate = "";
 
 
 
@@ -61,7 +63,9 @@ public class FragAttInsert extends Fragment {
         view = inflater.inflate(R.layout.youth_frag_att_insert, container, false);
 
         final TextView att_date = view.findViewById(R.id.att_date);
+        Button btn_att_reset = view.findViewById(R.id.btn_att_reset);
         listView = view.findViewById(R.id.youth_list_att);
+
 
 
         int thisWeek=0;
@@ -77,8 +81,7 @@ public class FragAttInsert extends Fragment {
             calendar.set(year,month-1,day);
             thisWeek = calendar.get(Calendar.WEEK_OF_MONTH);
             weekCheck = year + "." + month + " " + thisWeek + "주차";
-
-
+            intentDate = date;
 
             Response.Listener<String> responseListener = new Response.Listener<String>() {
                 @Override
@@ -89,19 +92,25 @@ public class FragAttInsert extends Fragment {
                         JSONArray jsonArray = jsonResponse.getJSONArray("response");
 
                         int count = 0;
-                        String name, pnum;
+                        String name, pnum, date, att1, att2, att3, att4, att5;
                         while (count < jsonArray.length()){
                             JSONObject object =jsonArray.getJSONObject(count);
                             pnum = object.getString("pnum");
                             name = object.getString("name");
-                            youthDTOList.add(new YouthDTO(pnum, name,null,null,null,null,null,null));
+                            date = object.getString("att_date");
+                            att1 = object.getString("att1");
+                            att2 = object.getString("att2");
+                            att3 = object.getString("att3");
+                            att4 = object.getString("att4");
+                            att5 = object.getString("att5");
+                            youthDTOList.add(new YouthDTO(pnum, name, date, att1, att2, att3, att4, att5));
                             count++;
+                            Log.e("jsonObject", object.toString());
 
                         }
                         youthListAdapter = new YouthListAdapter(getContext(),youthDTOList);
                         listView.setAdapter(youthListAdapter);
                         att_date.setText(weekCheck);
-
 
                     }catch (JSONException e){
                         e.getStackTrace();
@@ -114,6 +123,19 @@ public class FragAttInsert extends Fragment {
             RequestQueue queue = Volley.newRequestQueue(getActivity());
             queue.add(youthAttRequest);
         }
+
+        btn_att_reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                YouthResetRequest youthResetRequest = new YouthResetRequest(weekCheck,null);
+                RequestQueue queue = Volley.newRequestQueue(getActivity());
+                queue.add(youthResetRequest);
+                Intent intent = new Intent(getActivity(),YouthActivity.class);
+                intent.putExtra("date",intentDate);
+                startActivity(intent);
+
+            }
+        });
 
 
 

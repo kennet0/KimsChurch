@@ -42,7 +42,6 @@ public class FragAttCheck extends Fragment {
                String date = year + "/" + (month+1) + "/" + dayOfMonth;
                Intent intent = new Intent(getActivity(), YouthActivity.class);
                intent.putExtra("date", date);
-                Log.e("date",date);
                startActivity(intent);
 
 
