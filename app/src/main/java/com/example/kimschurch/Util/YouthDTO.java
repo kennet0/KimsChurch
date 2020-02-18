@@ -3,22 +3,22 @@ package com.example.kimschurch.Util;
 public class YouthDTO {
     private String pnum;
     private String name;
-    private String date;
-    private int att1;
-    private int att2;
-    private int att_srb;
-    private int att_train;
-    private int att_visit;
+    private String att_date;
+    private String att1;
+    private String att2;
+    private String att3;
+    private String att4;
+    private String att5;
 
-    public YouthDTO(String pnum, String name, String date, int att1, int att2, int att_srb, int att_train, int att_visit) {
+    public YouthDTO(String pnum, String name, String att_date, String att1, String att2, String att3, String att4, String att5) {
         this.pnum = pnum;
         this.name = name;
-        this.date = date;
+        this.att_date = att_date;
         this.att1 = att1;
         this.att2 = att2;
-        this.att_srb = att_srb;
-        this.att_train = att_train;
-        this.att_visit = att_visit;
+        this.att3 = att3;
+        this.att4 = att4;
+        this.att5 = att5;
     }
 
     public String getPnum() {
@@ -37,51 +37,51 @@ public class YouthDTO {
         this.name = name;
     }
 
-    public String getDate() {
-        return date;
+    public String getAtt_date() {
+        return att_date;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setAtt_date(String att_date) {
+        this.att_date = att_date;
     }
 
-    public int getAtt1() {
+    public String getAtt1() {
         return att1;
     }
 
-    public void setAtt1(int att1) {
+    public void setAtt1(String att1) {
         this.att1 = att1;
     }
 
-    public int getAtt2() {
+    public String getAtt2() {
         return att2;
     }
 
-    public void setAtt2(int att2) {
+    public void setAtt2(String att2) {
         this.att2 = att2;
     }
 
-    public int getAtt_srb() {
-        return att_srb;
+    public String getAtt3() {
+        return att3;
     }
 
-    public void setAtt_srb(int att_srb) {
-        this.att_srb = att_srb;
+    public void setAtt3(String att3) {
+        this.att3 = att3;
     }
 
-    public int getAtt_train() {
-        return att_train;
+    public String getAtt4() {
+        return att4;
     }
 
-    public void setAtt_train(int att_train) {
-        this.att_train = att_train;
+    public void setAtt4(String att4) {
+        this.att4 = att4;
     }
 
-    public int getAtt_visit() {
-        return att_visit;
+    public String getAtt5() {
+        return att5;
     }
 
-    public void setAtt_visit(int att_visit) {
-        this.att_visit = att_visit;
+    public void setAtt5(String att5) {
+        this.att5 = att5;
     }
 }

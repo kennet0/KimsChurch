@@ -11,11 +11,11 @@ public class YouthAttRequest extends StringRequest {
     final static private String URL = "http://112.186.116.16:6011/Youth.php";
     private Map<String, String>  parameters;
 
-    public YouthAttRequest(String date, Response.Listener<String> listener) {
+    public YouthAttRequest(String att_date, Response.Listener<String> listener) {
 
         super(Method.POST, URL, listener, null);
         parameters = new HashMap<>();
-        parameters.put("date", date);
+        parameters.put("att_date", att_date);
     }
 
     @Override

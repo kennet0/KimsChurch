@@ -94,7 +94,7 @@ public class FragAttInsert extends Fragment {
                             JSONObject object =jsonArray.getJSONObject(count);
                             pnum = object.getString("pnum");
                             name = object.getString("name");
-                            youthDTOList.add(new YouthDTO(pnum, name,false,false, false, false,false));
+                            youthDTOList.add(new YouthDTO(pnum, name,null,null,null,null,null,null));
                             count++;
 
                         }

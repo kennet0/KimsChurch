@@ -34,21 +34,21 @@
             >
         </CheckBox>
         <CheckBox
-            android:id="@+id/chb_att_srb"
+            android:id="@+id/chb_att3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="16"
             >
         </CheckBox>
         <CheckBox
-            android:id="@+id/chb_att_train"
+            android:id="@+id/chb_att4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="16"
             >
         </CheckBox>
         <CheckBox
-            android:id="@+id/chb_att_visit"
+            android:id="@+id/chb_att5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="10"
