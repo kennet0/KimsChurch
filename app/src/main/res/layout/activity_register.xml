@@ -77,29 +77,27 @@
                 android:layout_height="wrap_content"
                 android:checked="true"
                 android:text="성도"
-                android:layout_weight="25">
-            </RadioButton>
+                android:layout_weight="25"/>
+
             <RadioButton
                 android:id="@+id/rbDecon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="집사"
-                android:layout_weight="25">
-            </RadioButton>
+                android:layout_weight="25"/>
+
             <RadioButton
                 android:id="@+id/rbSeniorDecon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="권사"
-                android:layout_weight="25">
-            </RadioButton>
+                android:layout_weight="25"/>
             <RadioButton
                 android:id="@+id/rbElder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="장로"
-                android:layout_weight="25">
-            </RadioButton>
+                android:layout_weight="25"/>
         </RadioGroup>
 
         <!-- 부서 라디오 -->
@@ -122,15 +120,14 @@
                 android:layout_height="wrap_content"
                 android:text="청년"
                 android:checked="true"
-                android:layout_weight="25">
-            </RadioButton>
+                android:layout_weight="25"/>
             <RadioButton
                 android:id="@+id/rbSenior"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="장년"
-                android:layout_weight="25">
-            </RadioButton>
+                android:layout_weight="25"/>
+
         </RadioGroup>
 
         <!-- 직책 라디오 -->
@@ -152,23 +149,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="임원"
-                android:layout_weight="20">
-            </RadioButton>
+                android:layout_weight="20"/>
+
             <RadioButton
                 android:id="@+id/rbLeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="목자"
-                android:layout_weight="20">
-            </RadioButton>
+                android:layout_weight="20"/>
+
             <RadioButton
                 android:id="@+id/rbMember"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="예원"
                 android:checked="true"
-                android:layout_weight="20">
-            </RadioButton>
+                android:layout_weight="20"/>
+
         </RadioGroup>
 
         <!-- 전화번호 입력 -->

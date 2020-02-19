@@ -45,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText txtName = findViewById(R.id.txtName);
         final EditText txtPhone = findViewById(R.id.txtPhone);
         RadioGroup rgPosition = findViewById(R.id.rgPosition);
-        RadioGroup rgDepartment = findViewById(R.id.rgDepartment);
+        final RadioGroup rgDepartment = findViewById(R.id.rgDepartment);
         RadioGroup rgPart = findViewById(R.id.rgPart);
         final RadioButton btnPosition = findViewById(rgPosition.getCheckedRadioButtonId());
         final RadioButton btnDepartment = findViewById(rgDepartment.getCheckedRadioButtonId());
@@ -59,6 +59,18 @@ public class RegisterActivity extends AppCompatActivity {
         Button btnRegister = findViewById(R.id.btnRegister);
         Button btnRemove = findViewById(R.id.btnRemove);
         btnRemove.setVisibility(View.GONE);
+
+        btnDepartment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.e("test", btnDepartment.getText().toString());
+            }
+        });
+
+
+
+
+
 
         String intentPnum = null;
 
