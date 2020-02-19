@@ -34,50 +34,119 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RegisterActivity extends AppCompatActivity {
 
-   String image="";
+   String image="", pnum = null;
    CircleImageView imageView;
+   EditText txtName,txtPhone, txtSRBName, txtSRBLeader, txtWork, txtBirthday, txtEtc ;
+   RadioGroup rgPosition, rgDepartment,rgPart;
+   RadioButton btnPosition, btnDepartment, btnPart;
+   Button btnImage, btnRegister, btnRemove;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        final EditText txtName = findViewById(R.id.txtName);
-        final EditText txtPhone = findViewById(R.id.txtPhone);
-        RadioGroup rgPosition = findViewById(R.id.rgPosition);
-        final RadioGroup rgDepartment = findViewById(R.id.rgDepartment);
-        RadioGroup rgPart = findViewById(R.id.rgPart);
-        final RadioButton btnPosition = findViewById(rgPosition.getCheckedRadioButtonId());
-        final RadioButton btnDepartment = findViewById(rgDepartment.getCheckedRadioButtonId());
-        final RadioButton btnPart = findViewById(rgPart.getCheckedRadioButtonId());
-        final EditText txtSRBName = findViewById(R.id.txtSRBName);
-        final EditText txtSRBLeader = findViewById(R.id.txtSRBLeader);
-        final EditText txtWork = findViewById(R.id.txtWork);
-        final EditText txtBirthday = findViewById(R.id.txtBirthday);
-        final EditText txtEtc = findViewById(R.id.txtEtc);
-        Button btnImage = findViewById(R.id.btnImage);
-        Button btnRegister = findViewById(R.id.btnRegister);
-        Button btnRemove = findViewById(R.id.btnRemove);
+        txtName = findViewById(R.id.txtName);
+        txtPhone = findViewById(R.id.txtPhone);
+        rgPosition = findViewById(R.id.rgPosition);
+        rgDepartment = findViewById(R.id.rgDepartment);
+        rgPart = findViewById(R.id.rgPart);
+        btnPosition = findViewById(rgPosition.getCheckedRadioButtonId());
+        btnDepartment = findViewById(rgDepartment.getCheckedRadioButtonId());
+        btnPart = findViewById(rgPart.getCheckedRadioButtonId());
+        txtSRBName = findViewById(R.id.txtSRBName);
+        txtSRBLeader = findViewById(R.id.txtSRBLeader);
+        txtWork = findViewById(R.id.txtWork);
+        txtBirthday = findViewById(R.id.txtBirthday);
+        txtEtc = findViewById(R.id.txtEtc);
+        btnImage = findViewById(R.id.btnImage);
+        btnRegister = findViewById(R.id.btnRegister);
+        btnRemove = findViewById(R.id.btnRemove);
         btnRemove.setVisibility(View.GONE);
 
-        btnDepartment.setOnClickListener(new View.OnClickListener() {
+
+        updateMember(getIntent());
+
+        //이미지 등록 버튼
+        btnImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("test", btnDepartment.getText().toString());
+                Intent intent = new Intent(Intent.ACTION_PICK);
+                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
+                intent.setType("image/*");
+                startActivityForResult(intent,0);
             }
         });
 
+        //db등록 버튼
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String name = txtName.getText().toString();
+                String phone = txtPhone.getText().toString();
+                String position = btnPosition.getText().toString();
+                String department = btnDepartment.getText().toString();
+                String part = btnPart.getText().toString();
+                String srbName =txtSRBName.getText().toString();
+                String srbLeader = txtSRBLeader.getText().toString();
+                String work = txtWork.getText().toString();
+                String birthday = txtBirthday.getText().toString();
+                String etc = txtEtc.getText().toString();
 
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try{
+                            JSONObject jsonResponse = new JSONObject(response);
+                            Log.e("response",jsonResponse.toString());
+                            boolean success = jsonResponse.getBoolean("success");
+                            if(success){
+                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                builder.setMessage("교인등록성공").setPositiveButton("확인",null).create().show();
+                                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
+                                startActivity(intent);
+                            }else{
+                                Toast.makeText(RegisterActivity.this, "다시작성해주세요", Toast.LENGTH_SHORT).show();
+                            }
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                };
 
+                RegisterRequest registerRequest =
+                        new RegisterRequest(image, pnum, name, phone, position, department, part, srbName, srbLeader, work, birthday,etc, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
+                queue.add(registerRequest);
+            }
+        });
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == 0 && resultCode == RESULT_OK) {
+            try {
+                InputStream in = getContentResolver().openInputStream(data.getData());
+                Bitmap bitmap = BitmapFactory.decodeStream(in);
+                ImageProcess imageProcess = new ImageProcess();
+                image = imageProcess.bitmapToString(bitmap);
+                imageView = findViewById(R.id.imgView);
+                imageView.setImageBitmap(bitmap);
+                in.close();
 
-        String intentPnum = null;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
-        //수정할 때
+    //수정할 때
+    public void updateMember(Intent intent){
         if((getIntent().hasExtra("name"))){
-             intentPnum = getIntent().getStringExtra("pnum");
-             final String removePnum = intentPnum ;
+            pnum = getIntent().getStringExtra("pnum");
             String intentName = getIntent().getStringExtra("name");
             String intentPhone = getIntent().getStringExtra("phone");
             String intentPosition = getIntent().getStringExtra("position");
@@ -88,11 +157,10 @@ public class RegisterActivity extends AppCompatActivity {
             String intentWork = getIntent().getStringExtra("work");
             String intentBirthday = getIntent().getStringExtra("birthday");
             String intentEtc = getIntent().getStringExtra("etc");
-            Log.e("check",intentSrbLeader + intentBirthday);
 
             imageView = findViewById(R.id.imgView);
             ImageProcess.LoadImage imageProcess = new ImageProcess.LoadImage(imageView);
-            imageProcess.execute("http://112.186.116.16:6011/upload/" + intentPnum + ".png");
+            imageProcess.execute("http://112.186.116.16:6011/upload/" + pnum + ".png");
 
             txtName.setText(intentName);
             switch (intentPosition){
@@ -108,7 +176,7 @@ public class RegisterActivity extends AppCompatActivity {
                 case "장로":
                     rgPosition.check(R.id.rbElder);
                     break;
-                 default:
+                default:
                     rgPosition.check(R.id.rbLayman);
                     break;
             }
@@ -171,92 +239,22 @@ public class RegisterActivity extends AppCompatActivity {
                         }
                     };
 
-                    RemoveRequest removeRequest = new RemoveRequest(removePnum, responseListener);
+                    RemoveRequest removeRequest = new RemoveRequest(pnum, responseListener);
                     RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                     queue.add(removeRequest);
+                    Log.e("pnum", pnum);
 
                 }
             });
 
 
         }
-        final String pnum = intentPnum;
-
-        //이미지 등록 버튼
-        btnImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-                intent.setType("image/*");
-                startActivityForResult(intent,0);
-            }
-        });
-
-        //db등록 버튼
-        btnRegister.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String name = txtName.getText().toString();
-                String phone = txtPhone.getText().toString();
-                String position = btnPosition.getText().toString();
-                String department = btnDepartment.getText().toString();
-                String part = btnPart.getText().toString();
-                String srbName =txtSRBName.getText().toString();
-                String srbLeader = txtSRBLeader.getText().toString();
-                String work = txtWork.getText().toString();
-                String birthday = txtBirthday.getText().toString();
-                String etc = txtEtc.getText().toString();
-
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try{
-                            JSONObject jsonResponse = new JSONObject(response);
-                            Log.e("response",jsonResponse.toString());
-                            boolean success = jsonResponse.getBoolean("success");
-                            if(success){
-                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                builder.setMessage("교인등록성공").setPositiveButton("확인",null).create().show();
-                                Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
-                                startActivity(intent);
-                            }else{
-                                Toast.makeText(RegisterActivity.this, "다시작성해주세요", Toast.LENGTH_SHORT).show();
-                            }
-                        }catch (JSONException e){
-                            e.printStackTrace();
-                        }
-                    }
-                };
-
-                RegisterRequest registerRequest =
-                        new RegisterRequest(image, pnum, name, phone, position, department, part, srbName, srbLeader, work, birthday,etc, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
-                queue.add(registerRequest);
-            }
-        });
-
-
-
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 0 && resultCode == RESULT_OK) {
-            try {
-                InputStream in = getContentResolver().openInputStream(data.getData());
-                Bitmap bitmap = BitmapFactory.decodeStream(in);
-                ImageProcess imageProcess = new ImageProcess();
-                image = imageProcess.bitmapToString(bitmap);
-                imageView = findViewById(R.id.imgView);
-                imageView.setImageBitmap(bitmap);
-                in.close();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+    public void radioCheck(View v){
+        btnPosition = findViewById(rgPosition.getCheckedRadioButtonId());
+        btnDepartment = findViewById(rgDepartment.getCheckedRadioButtonId());
+        btnPart = findViewById(rgPart.getCheckedRadioButtonId());
     }
 }

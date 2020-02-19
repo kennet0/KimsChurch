@@ -1,5 +1,7 @@
 package com.example.kimschurch.Register;
 
+import android.util.Log;
+
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
 
