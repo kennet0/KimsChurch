@@ -6,7 +6,7 @@ public class MemberDTO {
     private String pnum;
     private String name;
     private String phone;
-    private String picture;
+    private String sex;
     private String position;
     private String department;
     private String part;
@@ -14,13 +14,14 @@ public class MemberDTO {
     private String srbLeader;
     private String work;
     private String birthday;
+    private String birthdayCal;
     private String etc;
 
-    public MemberDTO(String  pnum, String name, String phone, String picture, String position, String department, String part, String srbName, String srbLeader, String work, String birthday, String etc) {
+    public MemberDTO(String  pnum, String name, String phone, String sex, String position, String department, String part, String srbName, String srbLeader, String work, String birthday, String birthdayCal, String etc) {
         this.pnum = pnum;
         this.name = name;
         this.phone = phone;
-        this.picture = picture;
+        this.sex = sex;
         this.position = position;
         this.department = department;
         this.part = part;
@@ -28,6 +29,7 @@ public class MemberDTO {
         this.srbLeader = srbLeader;
         this.work = work;
         this.birthday = birthday;
+        this.birthdayCal = birthdayCal;
         this.etc = etc;
     }
 
@@ -55,12 +57,12 @@ public class MemberDTO {
         this.phone = phone;
     }
 
-    public String getPicture() {
-        return picture;
+    public String getSex() {
+        return sex;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
+    public void setSex(String picture) {
+        this.sex = sex;
     }
 
     public String getPosition() {
@@ -117,6 +119,14 @@ public class MemberDTO {
 
     public void setBirthday(String birthday) {
         this.birthday = birthday;
+    }
+
+    public String getBirthdayCal() {
+        return birthdayCal;
+    }
+
+    public void setBirthdayCal(String birthdayCal) {
+        this.birthdayCal = birthdayCal;
     }
 
     public String getEtc() {

@@ -47,7 +47,7 @@ public class MemberListAdapter extends BaseAdapter{
         TextView part = search_list_view.findViewById(R.id.rs_part);
         TextView phone = search_list_view.findViewById(R.id.rs_phone);
 
-        ImageProcess.LoadImage imageProcess = new ImageProcess.LoadImage(imageView);
+        ImageProcess.LoadCircleImage imageProcess = new ImageProcess.LoadCircleImage(imageView);
         imageProcess.execute("http://112.186.116.16:6011/upload/" +
                 memberDTOList.get(i).getPnum() + ".png");
 

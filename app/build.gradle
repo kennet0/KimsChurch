@@ -34,4 +34,5 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.squareup.okhttp3:okhttp:4.3.1'
     implementation 'com.google.android.material:material:1.2.0-alpha04'
+    implementation files('/Users/jhan/Downloads/icu4j-4_8_2.jar ')
 }

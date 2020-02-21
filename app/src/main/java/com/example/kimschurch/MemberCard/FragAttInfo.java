@@ -9,10 +9,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-
 import com.example.kimschurch.R;
 
 public class FragAttInfo extends Fragment {
+
+
+
+
 
     public static FragAttInfo newInstance(){
         FragAttInfo fragAttInfo = new FragAttInfo();

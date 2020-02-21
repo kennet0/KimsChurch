@@ -31,7 +31,7 @@ public class MemberCardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_member_card);
+        setContentView(R.layout.activity_membercard);
 
         if(findViewById(R.id.frag_containerA) !=null){
             if(savedInstanceState!=null){
@@ -46,8 +46,9 @@ public class MemberCardActivity extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
 
         String intentPnum = getIntent().getStringExtra("pnum");
-        final String intentName = getIntent().getStringExtra("name");
+        String intentName = getIntent().getStringExtra("name");
         String intentPhone = getIntent().getStringExtra("phone");
+        String intentSex = getIntent().getStringExtra("sex");
         String intentPosition = getIntent().getStringExtra("position");
         String intentDepartment = getIntent().getStringExtra("department");
         String intentPart = getIntent().getStringExtra("part");
@@ -55,8 +56,9 @@ public class MemberCardActivity extends AppCompatActivity {
         String intentSrbLeader = getIntent().getStringExtra("srbLeader");
         String intentWork = getIntent().getStringExtra("work");
         String intentBirthday = getIntent().getStringExtra("birthday");
+        String intentBirthdayCal = getIntent().getStringExtra("birthdayCal");
         String intentEtc = getIntent().getStringExtra("etc");
-        memberDTO = new MemberDTO(intentPnum,intentName,intentPhone,null, intentPosition,intentDepartment,intentPart,intentSrbName,intentSrbLeader,intentWork,intentBirthday,intentEtc);
+        memberDTO = new MemberDTO(intentPnum,intentName,intentPhone,intentSex, intentPosition,intentDepartment,intentPart,intentSrbName,intentSrbLeader,intentWork,intentBirthday,intentBirthdayCal,intentEtc);
 
         Response.Listener<String> responseListener = (new Response.Listener<String>() {
             @Override
@@ -77,19 +79,18 @@ public class MemberCardActivity extends AppCompatActivity {
                         att4 = object.getString("att4");
                         att5 = object.getString("att5");
 
-                        attDTOList.add(new AttDTO(att_pnum, intentName, att_date, att1,att2,att3,att4,att5));
+                        attDTOList.add(new AttDTO(att_pnum, null, att_date, att1,att2,att3,att4,att5));
                         Log.e("attDTO", object.toString());
                         count++;
                     }
-
-
                 }catch (JSONException e){
                     e.getStackTrace();
                 }
 
 
                 FragmentTransaction fragmentTransaction =fragmentManager.beginTransaction();
-                FragMember fragMember = FragMember.newInstance();
+
+                FragMember fragMember = FragMember.newInstance(memberDTO);
                 FragAttInfo fragAttInfo = FragAttInfo.newInstance();
 
                 fragmentTransaction.add(R.id.frag_containerA, fragMember, null);

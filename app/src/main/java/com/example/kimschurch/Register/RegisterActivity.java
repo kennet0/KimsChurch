@@ -37,8 +37,8 @@ public class RegisterActivity extends AppCompatActivity {
    String image="", pnum = null;
    CircleImageView imageView;
    EditText txtName,txtPhone, txtSRBName, txtSRBLeader, txtWork, txtBirthday, txtEtc ;
-   RadioGroup rgPosition, rgDepartment,rgPart;
-   RadioButton btnPosition, btnDepartment, btnPart;
+   RadioGroup rgPosition, rgDepartment,rgPart,rgSex, rgBirthdayCal;
+   RadioButton btnPosition, btnDepartment, btnPart, btnSex, btnBirthdayCal;
    Button btnImage, btnRegister, btnRemove;
 
 
@@ -51,10 +51,14 @@ public class RegisterActivity extends AppCompatActivity {
         txtPhone = findViewById(R.id.txtPhone);
         rgPosition = findViewById(R.id.rgPosition);
         rgDepartment = findViewById(R.id.rgDepartment);
+        rgBirthdayCal = findViewById(R.id.rgBirthdayCal);
+        rgSex = findViewById(R.id.rgSex);
         rgPart = findViewById(R.id.rgPart);
         btnPosition = findViewById(rgPosition.getCheckedRadioButtonId());
         btnDepartment = findViewById(rgDepartment.getCheckedRadioButtonId());
         btnPart = findViewById(rgPart.getCheckedRadioButtonId());
+        btnSex = findViewById(rgSex.getCheckedRadioButtonId());
+        btnBirthdayCal = findViewById(rgBirthdayCal.getCheckedRadioButtonId());
         txtSRBName = findViewById(R.id.txtSRBName);
         txtSRBLeader = findViewById(R.id.txtSRBLeader);
         txtWork = findViewById(R.id.txtWork);
@@ -64,7 +68,6 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         btnRemove = findViewById(R.id.btnRemove);
         btnRemove.setVisibility(View.GONE);
-
 
         updateMember(getIntent());
 
@@ -87,6 +90,8 @@ public class RegisterActivity extends AppCompatActivity {
                 String phone = txtPhone.getText().toString();
                 String position = btnPosition.getText().toString();
                 String department = btnDepartment.getText().toString();
+                String birthdayCal = btnBirthdayCal.getText().toString();
+                String sex = btnSex.getText().toString();
                 String part = btnPart.getText().toString();
                 String srbName =txtSRBName.getText().toString();
                 String srbLeader = txtSRBLeader.getText().toString();
@@ -116,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity {
                 };
 
                 RegisterRequest registerRequest =
-                        new RegisterRequest(image, pnum, name, phone, position, department, part, srbName, srbLeader, work, birthday,etc, responseListener);
+                        new RegisterRequest(image, pnum, name, phone, sex,position, department, part, srbName, srbLeader, work, birthday, birthdayCal, etc, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(registerRequest);
             }
@@ -145,21 +150,23 @@ public class RegisterActivity extends AppCompatActivity {
 
     //수정할 때
     public void updateMember(Intent intent){
-        if((getIntent().hasExtra("name"))){
-            pnum = getIntent().getStringExtra("pnum");
-            String intentName = getIntent().getStringExtra("name");
-            String intentPhone = getIntent().getStringExtra("phone");
-            String intentPosition = getIntent().getStringExtra("position");
-            String intentPart = getIntent().getStringExtra("part");
-            String intentDepartment = getIntent().getStringExtra("department");
-            String intentSrbName =getIntent().getStringExtra("srbName");
-            String intentSrbLeader = getIntent().getStringExtra("srbLeader");
-            String intentWork = getIntent().getStringExtra("work");
-            String intentBirthday = getIntent().getStringExtra("birthday");
-            String intentEtc = getIntent().getStringExtra("etc");
+        if((intent.hasExtra("name"))){
+            pnum = intent.getStringExtra("pnum");
+            String intentName = intent.getStringExtra("name");
+            String intentPhone = intent.getStringExtra("phone");
+            String intentSex = intent.getStringExtra("sex");
+            String intentPosition = intent.getStringExtra("position");
+            String intentPart = intent.getStringExtra("part");
+            String intentDepartment = intent.getStringExtra("department");
+            String intentSrbName =intent.getStringExtra("srbName");
+            String intentSrbLeader = intent.getStringExtra("srbLeader");
+            String intentWork = intent.getStringExtra("work");
+            String intentBirthday = intent.getStringExtra("birthday");
+            String intentBirthdayCal = intent.getStringExtra("birthdayCal");
+            String intentEtc = intent.getStringExtra("etc");
 
             imageView = findViewById(R.id.imgView);
-            ImageProcess.LoadImage imageProcess = new ImageProcess.LoadImage(imageView);
+            ImageProcess.LoadCircleImage imageProcess = new ImageProcess.LoadCircleImage(imageView);
             imageProcess.execute("http://112.186.116.16:6011/upload/" + pnum + ".png");
 
             txtName.setText(intentName);
@@ -191,6 +198,17 @@ public class RegisterActivity extends AppCompatActivity {
                     rgDepartment.check(R.id.rbYouth);
                     break;
             }
+            switch (intentSex){
+                case "남":
+                    rgSex.check(R.id.rbMale);
+                    break;
+                case "여":
+                    rgSex.check(R.id.rbFemale);
+                    break;
+                default:
+                    rgSex.check(R.id.rbMale);
+                    break;
+            }
             switch (intentPart){
                 case "임원":
                     rgPart.check(R.id.rbMinister);
@@ -203,6 +221,17 @@ public class RegisterActivity extends AppCompatActivity {
                     break;
                 default:
                     rgPosition.check(R.id.rbMember);
+                    break;
+            }
+            switch (intentBirthdayCal){
+                case "양":
+                    rgBirthdayCal.check(R.id.rbSunCalander);
+                    break;
+                case "음":
+                    rgBirthdayCal.check(R.id.rbLunarCalander);
+                    break;
+                default:
+                    rgBirthdayCal.check(R.id.rbSunCalander);
                     break;
             }
             txtPhone.setText(intentPhone);
@@ -253,5 +282,7 @@ public class RegisterActivity extends AppCompatActivity {
         btnPosition = findViewById(rgPosition.getCheckedRadioButtonId());
         btnDepartment = findViewById(rgDepartment.getCheckedRadioButtonId());
         btnPart = findViewById(rgPart.getCheckedRadioButtonId());
+        btnSex = findViewById(rgSex.getCheckedRadioButtonId());
+        btnBirthdayCal = findViewById(rgBirthdayCal.getCheckedRadioButtonId());
     }
 }

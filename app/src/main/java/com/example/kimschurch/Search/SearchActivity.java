@@ -48,6 +48,7 @@ public class SearchActivity extends AppCompatActivity {
 
                clickIntent.putExtra("pnum",memberDTOList.get(i).getPnum());
                clickIntent.putExtra("name",memberDTOList.get(i).getName());
+               clickIntent.putExtra("sex", memberDTOList.get(i).getSex());
                clickIntent.putExtra("position",memberDTOList.get(i).getPosition());
                clickIntent.putExtra("department",memberDTOList.get(i).getDepartment());
                clickIntent.putExtra("part",memberDTOList.get(i).getPart());
@@ -56,6 +57,7 @@ public class SearchActivity extends AppCompatActivity {
                clickIntent.putExtra("srbLeader",memberDTOList.get(i).getSrbLeader());
                clickIntent.putExtra("work",memberDTOList.get(i).getWork());
                clickIntent.putExtra("birthday",memberDTOList.get(i).getBirthday());
+               clickIntent.putExtra("birthdayCal",memberDTOList.get(i).getBirthdayCal());
                clickIntent.putExtra("etc", memberDTOList.get(i).getEtc());
 
                startActivity(clickIntent);
@@ -69,13 +71,13 @@ public class SearchActivity extends AppCompatActivity {
             JSONArray jsonArray = jsonObject.getJSONArray("response");
 
             int count = 0 ;
-            String pnum, name, phone, picture, position,  department, part, srbName, srbLeader, work, birthday, etc;
+            String pnum, name, phone, sex, position, department, part, srbName, srbLeader, work, birthday, birthdayCal, etc;
             while (count < jsonArray.length()){
                 JSONObject object = jsonArray.getJSONObject(count);
                 pnum = object.getString("pnum");
                 name = object.getString("name");
                 phone = object.getString("phone");
-                picture = object.getString("picture");
+                sex = object.getString("sex");
                 position = object.getString("position");
                 department = object.getString("department");
                 part = object.getString("part");
@@ -83,9 +85,10 @@ public class SearchActivity extends AppCompatActivity {
                 srbLeader = object.getString("srbLeader");
                 work = object.getString("work");
                 birthday = object.getString("birthday");
+                birthdayCal = object.getString("birthdayCal");
                 etc = object.getString("etc");
 
-               memberDTOList.add(new MemberDTO(pnum, name, phone, picture, position, department, part, srbName, srbLeader, work, birthday, etc));
+               memberDTOList.add(new MemberDTO(pnum, name, phone, sex, position, department, part, srbName, srbLeader, work, birthday, birthdayCal, etc));
                 count++;
             }
 

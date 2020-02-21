@@ -1,4 +1,4 @@
-package com.example.kimschurch.Youth;
+package com.example.kimschurch.Util;
 
 import android.content.Context;
 import android.util.Log;
@@ -13,18 +13,19 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.example.kimschurch.R;
 import com.example.kimschurch.Util.AttDTO;
+import com.example.kimschurch.Youth.YouthUpdateRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.List;
 
-public class YouthListAdapter extends BaseAdapter {
+public class AttListAdapter extends BaseAdapter {
 
     private Context context;
     private List<AttDTO> attDTOList;
 
-    public YouthListAdapter(Context context, List<AttDTO> attDTOList) {
+    public AttListAdapter(Context context, List<AttDTO> attDTOList) {
         this.context = context;
         this.attDTOList = attDTOList;
     }
@@ -46,7 +47,7 @@ public class YouthListAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
-        View youth_list = View.inflate(context, R.layout.youth_list, null);
+        View youth_list = View.inflate(context, R.layout.list_att, null);
 
         TextView att_name = youth_list.findViewById(R.id.att_name);
         final CheckBox chb_att1 = youth_list.findViewById(R.id.chb_att1);

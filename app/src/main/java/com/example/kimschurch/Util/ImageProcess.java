@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Base64;
+import android.widget.ImageView;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,57 +22,35 @@ public class ImageProcess {
          
     }
 
-//    public static void send2Server(File file){
-//        RequestBody requestBody = new MultipartBody.Builder()
-//                .setType(MultipartBody.FORM)
-//                .addFormDataPart("files", "fname", RequestBody.create(MultipartBody.FORM, file))
-//                .build();
-//
-//        Request request = new Request.Builder()
-//                .url("http://112.186.116.16:6011/Upload.php")// Server URL 은 본인 IP를 입력
-//                .post(requestBody)
-//                .build();
-//
-//        Log.e("filename",file.getName());
-//        OkHttpClient client = new OkHttpClient();
-//        client.newCall(request)
-//                .enqueue(new Callback() {
-//                    @Override
-//                    public void onFailure(Call call, IOException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                @Override
-//                public void onResponse(Call call, Response response) throws IOException {
-//                    Log.e("TEST : ", response.body().string());
-//                    }
-//                });
-//
-//        }
+    public static class LoadCircleImage extends AsyncTask<String,Void, Bitmap>{
+        de.hdodenhof.circleimageview.CircleImageView imageView;
+        public LoadCircleImage(de.hdodenhof.circleimageview.CircleImageView ivResult){
+            this.imageView = ivResult;
+        }
 
-//    public static Bitmap getImageFromURL(String strImageURL){
-//        Bitmap imgBitmap = null;
-//
-//        try {
-//            URL url = new URL(strImageURL);
-//            URLConnection conn = url.openConnection();
-//            conn.connect();
-//
-//            int nSize = conn.getContentLength();
-//            BufferedInputStream bis = new BufferedInputStream(conn.getInputStream(),nSize);
-//            imgBitmap = BitmapFactory.decodeStream(bis);
-//            bis.close();
-//
-//
-//        }catch (Exception e){
-//
-//        }
-//        return imgBitmap;
-//    }
+        @Override
+        protected Bitmap doInBackground(String... strings) {
+            String urlLink = strings[0];
+            Bitmap bitmap = null;
+            try {
+                InputStream inputStream = new java.net.URL(urlLink).openStream();
+                bitmap = BitmapFactory.decodeStream(inputStream);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return  bitmap;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+
+            imageView.setImageBitmap(bitmap);
+        }
+    }
 
     public static class LoadImage extends AsyncTask<String,Void, Bitmap>{
-        de.hdodenhof.circleimageview.CircleImageView imageView;
-        public LoadImage (de.hdodenhof.circleimageview.CircleImageView ivResult){
+        ImageView imageView;
+        public LoadImage (ImageView ivResult){
             this.imageView = ivResult;
         }
 
