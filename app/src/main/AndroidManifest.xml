@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Youth.YouthActivity"></activity>
+        <activity android:name=".MemberCard.MemberCardActivity"></activity>
+        <activity android:name=".Youth.YouthActivity" />
         <activity android:name=".Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +23,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Register.RegisterActivity" />
+        <activity
+            android:name=".Register.RegisterActivity"
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity android:name=".Search.SearchActivity" />
     </application>
 

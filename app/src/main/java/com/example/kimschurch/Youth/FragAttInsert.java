@@ -2,13 +2,11 @@ package com.example.kimschurch.Youth;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -16,32 +14,25 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.example.kimschurch.R;
-import com.example.kimschurch.Util.YouthDTO;
-import com.google.gson.JsonObject;
+import com.example.kimschurch.Util.AttDTO;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 public class FragAttInsert extends Fragment {
 
     private View view;
     private ListView listView;
-    private List<YouthDTO> youthDTOList;
+    private List<AttDTO> attDTOList;
     private YouthListAdapter youthListAdapter;
     private String weekCheck ="";
     private String intentDate = "";
@@ -60,7 +51,7 @@ public class FragAttInsert extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.youth_frag_att_insert, container, false);
+        view = inflater.inflate(R.layout.youth_att_frag_insert, container, false);
 
         final TextView att_date = view.findViewById(R.id.att_date);
         Button btn_att_reset = view.findViewById(R.id.btn_att_reset);
@@ -87,7 +78,7 @@ public class FragAttInsert extends Fragment {
                 @Override
                 public void onResponse(String response) {
                     try {
-                        youthDTOList = new ArrayList<>();
+                        attDTOList = new ArrayList<>();
                         JSONObject jsonResponse = new JSONObject(response);
                         JSONArray jsonArray = jsonResponse.getJSONArray("response");
 
@@ -103,12 +94,11 @@ public class FragAttInsert extends Fragment {
                             att3 = object.getString("att3");
                             att4 = object.getString("att4");
                             att5 = object.getString("att5");
-                            youthDTOList.add(new YouthDTO(pnum, name, date, att1, att2, att3, att4, att5));
+                            attDTOList.add(new AttDTO(pnum, name, date, att1, att2, att3, att4, att5));
                             count++;
-                            Log.e("jsonObject", object.toString());
 
                         }
-                        youthListAdapter = new YouthListAdapter(getContext(),youthDTOList);
+                        youthListAdapter = new YouthListAdapter(getContext(), attDTOList);
                         listView.setAdapter(youthListAdapter);
                         att_date.setText(weekCheck);
 

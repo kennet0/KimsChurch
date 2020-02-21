@@ -1,6 +1,6 @@
 package com.example.kimschurch.Util;
 
-public class YouthDTO {
+public class AttDTO {
     private String pnum;
     private String name;
     private String att_date;
@@ -10,7 +10,7 @@ public class YouthDTO {
     private String att4;
     private String att5;
 
-    public YouthDTO(String pnum, String name, String att_date, String att1, String att2, String att3, String att4, String att5) {
+    public AttDTO(String pnum, String name, String att_date, String att1, String att2, String att3, String att4, String att5) {
         this.pnum = pnum;
         this.name = name;
         this.att_date = att_date;

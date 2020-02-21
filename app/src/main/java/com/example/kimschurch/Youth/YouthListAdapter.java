@@ -12,7 +12,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.example.kimschurch.R;
-import com.example.kimschurch.Util.YouthDTO;
+import com.example.kimschurch.Util.AttDTO;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,21 +22,21 @@ import java.util.List;
 public class YouthListAdapter extends BaseAdapter {
 
     private Context context;
-    private List<YouthDTO> youthDTOList;
+    private List<AttDTO> attDTOList;
 
-    public YouthListAdapter(Context context, List<YouthDTO> youthDTOList) {
+    public YouthListAdapter(Context context, List<AttDTO> attDTOList) {
         this.context = context;
-        this.youthDTOList = youthDTOList;
+        this.attDTOList = attDTOList;
     }
 
     @Override
     public int getCount() {
-        return youthDTOList.size();
+        return attDTOList.size();
     }
 
     @Override
     public Object getItem(int i) {
-        return youthDTOList.get(i);
+        return attDTOList.get(i);
     }
 
     @Override
@@ -56,18 +56,18 @@ public class YouthListAdapter extends BaseAdapter {
         final CheckBox chb_att5 = youth_list.findViewById(R.id.chb_att5);
 
 
-        att_name.setText(youthDTOList.get(i).getName());
-        if(youthDTOList.get(i).getAtt1().equals("1")) { chb_att1.setChecked(false);}
+        att_name.setText(attDTOList.get(i).getName());
+        if(attDTOList.get(i).getAtt1().equals("1")) { chb_att1.setChecked(false);}
         else{chb_att1.setChecked(true);}
-        if(youthDTOList.get(i).getAtt2().equals("1")) { chb_att2.setChecked(false);}
+        if(attDTOList.get(i).getAtt2().equals("1")) { chb_att2.setChecked(false);}
         else{chb_att2.setChecked(true);}
-        if(youthDTOList.get(i).getAtt3().equals("1")) { chb_att3.setChecked(false);}
+        if(attDTOList.get(i).getAtt3().equals("1")) { chb_att3.setChecked(false);}
         else{chb_att3.setChecked(true);}
-        if(youthDTOList.get(i).getAtt4().equals("1")) { chb_att4.setChecked(false);}
+        if(attDTOList.get(i).getAtt4().equals("1")) { chb_att4.setChecked(false);}
         else{chb_att4.setChecked(true);}
-        if(youthDTOList.get(i).getAtt5().equals("1")) { chb_att5.setChecked(false);}
+        if(attDTOList.get(i).getAtt5().equals("1")) { chb_att5.setChecked(false);}
         else{chb_att5.setChecked(true);}
-        youth_list.setTag(youthDTOList.get(i).getName());
+        youth_list.setTag(attDTOList.get(i).getName());
 
 
         //DB 연동
@@ -94,16 +94,16 @@ public class YouthListAdapter extends BaseAdapter {
                 if(chb_att1.isChecked()){
                     youthUpdateRequest =
                             new YouthUpdateRequest(
-                                    youthDTOList.get(i).getPnum(),
-                                    "",youthDTOList.get(i).getAtt_date(),"2",
+                                    attDTOList.get(i).getPnum(),
+                                    "", attDTOList.get(i).getAtt_date(),"2",
                                     "","","",
                                     "", listener);
                     Log.e("checkbox","checked");
                 }else {
                     youthUpdateRequest =
                             new YouthUpdateRequest(
-                                    youthDTOList.get(i).getPnum(),
-                                    "",youthDTOList.get(i).getAtt_date(),"1",
+                                    attDTOList.get(i).getPnum(),
+                                    "", attDTOList.get(i).getAtt_date(),"1",
                                     "","","",
                                     "",listener);
                     Log.e("checkbox","unchecked");
@@ -122,8 +122,8 @@ public class YouthListAdapter extends BaseAdapter {
                 if(chb_att2.isChecked()){
                     youthUpdateRequest =
                             new YouthUpdateRequest(
-                                    youthDTOList.get(i).getPnum(),
-                                    "",youthDTOList.get(i).getAtt_date(),"",
+                                    attDTOList.get(i).getPnum(),
+                                    "", attDTOList.get(i).getAtt_date(),"",
                                     "2","","",
                                     "", listener);
                     Log.e("checkbox","checked");
@@ -131,8 +131,8 @@ public class YouthListAdapter extends BaseAdapter {
                 }else {
                     youthUpdateRequest =
                             new YouthUpdateRequest(
-                                    youthDTOList.get(i).getPnum(),
-                                    "",youthDTOList.get(i).getAtt_date(),"",
+                                    attDTOList.get(i).getPnum(),
+                                    "", attDTOList.get(i).getAtt_date(),"",
                                     "1","","",
                                     "",listener);
                     Log.e("checkbox","unchecked");
@@ -152,8 +152,8 @@ public class YouthListAdapter extends BaseAdapter {
                 if(chb_att3.isChecked()){
                     youthUpdateRequest =
                             new YouthUpdateRequest(
-                                    youthDTOList.get(i).getPnum(),
-                                    "",youthDTOList.get(i).getAtt_date(),"",
+                                    attDTOList.get(i).getPnum(),
+                                    "", attDTOList.get(i).getAtt_date(),"",
                                     "","2","",
                                     "", listener);
                     Log.e("checkbox","checked");
@@ -162,8 +162,8 @@ public class YouthListAdapter extends BaseAdapter {
                 }else {
                     youthUpdateRequest =
                             new YouthUpdateRequest(
-                                    youthDTOList.get(i).getPnum(),
-                                    "",youthDTOList.get(i).getAtt_date(),"",
+                                    attDTOList.get(i).getPnum(),
+                                    "", attDTOList.get(i).getAtt_date(),"",
                                     "","1","",
                                     "",listener);
                     Log.e("checkbox","unchecked");
@@ -182,8 +182,8 @@ public class YouthListAdapter extends BaseAdapter {
                 if(chb_att4.isChecked()){
                     youthUpdateRequest =
                             new YouthUpdateRequest(
-                                    youthDTOList.get(i).getPnum(),
-                                    "",youthDTOList.get(i).getAtt_date(),"",
+                                    attDTOList.get(i).getPnum(),
+                                    "", attDTOList.get(i).getAtt_date(),"",
                                     "","","2",
                                     "", listener);
                     Log.e("checkbox","checked");
@@ -192,8 +192,8 @@ public class YouthListAdapter extends BaseAdapter {
                 }else {
                     youthUpdateRequest =
                             new YouthUpdateRequest(
-                                    youthDTOList.get(i).getPnum(),
-                                    "",youthDTOList.get(i).getAtt_date(),"",
+                                    attDTOList.get(i).getPnum(),
+                                    "", attDTOList.get(i).getAtt_date(),"",
                                     "","","1",
                                     "",listener);
                     Log.e("checkbox","unchecked");
@@ -212,8 +212,8 @@ public class YouthListAdapter extends BaseAdapter {
                 if(chb_att5.isChecked()){
                     youthUpdateRequest =
                             new YouthUpdateRequest(
-                                    youthDTOList.get(i).getPnum(),
-                                    "",youthDTOList.get(i).getAtt_date(),"",
+                                    attDTOList.get(i).getPnum(),
+                                    "", attDTOList.get(i).getAtt_date(),"",
                                     "","","",
                                     "2", listener);
                     Log.e("checkbox","checked");
@@ -222,8 +222,8 @@ public class YouthListAdapter extends BaseAdapter {
                 }else {
                     youthUpdateRequest =
                             new YouthUpdateRequest(
-                                    youthDTOList.get(i).getPnum(),
-                                    "",youthDTOList.get(i).getAtt_date(),"",
+                                    attDTOList.get(i).getPnum(),
+                                    "", attDTOList.get(i).getAtt_date(),"",
                                     "","","",
                                     "1",listener);
                     Log.e("checkbox","unchecked");

@@ -2,19 +2,15 @@ package com.example.kimschurch.Youth;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CalendarView;
-import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
-import com.example.kimschurch.Main.MainActivity;
 import com.example.kimschurch.R;
 
 public class FragAttCheck extends Fragment {
@@ -34,7 +30,7 @@ public class FragAttCheck extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.youth_frag_att_check, container, false);
+        view = inflater.inflate(R.layout.youth_att_frag_check, container, false);
         clnd_att = view.findViewById(R.id.clnd_att);
         clnd_att.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override

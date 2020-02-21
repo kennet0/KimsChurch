@@ -2,7 +2,6 @@ package com.example.kimschurch.Search;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -10,7 +9,7 @@ import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import com.example.kimschurch.Register.RegisterActivity;
+import com.example.kimschurch.MemberCard.MemberCardActivity;
 import com.example.kimschurch.Util.MemberDTO;
 import com.example.kimschurch.R;
 
@@ -45,7 +44,7 @@ public class SearchActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int i, long id) {
-               Intent clickIntent = new Intent(SearchActivity.this, RegisterActivity.class);
+               Intent clickIntent = new Intent(SearchActivity.this, MemberCardActivity.class);
 
                clickIntent.putExtra("pnum",memberDTOList.get(i).getPnum());
                clickIntent.putExtra("name",memberDTOList.get(i).getName());
