@@ -78,7 +78,7 @@ public class FragAttInsert extends Fragment {
                             att3 = object.getString("att3");
                             att4 = object.getString("att4");
                             att5 = object.getString("att5");
-                            attDTOList.add(new AttDTO(pnum, name, date, att1, att2, att3, att4, att5));
+                            attDTOList.add(new AttDTO(1,pnum, name, date, att1, att2, att3, att4, att5));
                             count++;
                         }
                         attListAdapter = new AttListAdapter(getContext(), attDTOList);

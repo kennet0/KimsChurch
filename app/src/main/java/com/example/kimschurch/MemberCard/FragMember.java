@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +17,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
 import com.example.kimschurch.R;
 import com.example.kimschurch.Register.RegisterActivity;
 import com.example.kimschurch.Util.Calculator;
 import com.example.kimschurch.Util.ImageProcess;
 import com.example.kimschurch.Util.MemberDTO;
+import com.google.gson.JsonObject;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class FragMember extends Fragment {
 
@@ -63,9 +71,10 @@ public class FragMember extends Fragment {
         TextView txtdepartment = view.findViewById(R.id.card_department);
         TextView txtsrbName = view.findViewById(R.id.card_srbName);
         TextView txtpart = view.findViewById(R.id.card_part);
-        TextView txtwork = view.findViewById(R.id.card_work);
-        TextView txtetc = view.findViewById(R.id.card_etc);
+        final TextView txtwork = view.findViewById(R.id.card_work);
+        final TextView txtetc = view.findViewById(R.id.card_etc);
         Button btnUpdate = view.findViewById(R.id.card_btn_update);
+        Button btnConfirm = view.findViewById(R.id.card_btn_confirm);
         Button btnBirthdayCal = view.findViewById(R.id.card_btn_convertCal);
         ImageView imageView = view.findViewById(R.id.card_imageview);
 
@@ -124,6 +133,7 @@ public class FragMember extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), RegisterActivity.class);
+
                 intent.putExtra("pnum",pnum);
                 intent.putExtra("name",name);
                 intent.putExtra("sex",sex);
@@ -140,6 +150,30 @@ public class FragMember extends Fragment {
                 startActivity(intent);
             }
         });
+        //특이사항 및 섬김 업데이트
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Response.Listener<String> listener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            Log.e("btnconfirm",jsonObject.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                };
+                String work = txtwork.getText().toString();
+                String etc = txtetc.getText().toString();
+                MemberCardEtcRequest memberCardEtcRequest = new MemberCardEtcRequest(pnum,work,etc,listener);
+                RequestQueue queue = Volley.newRequestQueue(getActivity());
+                queue.add(memberCardEtcRequest);
+            }
+        });
+
 
 
         return view;

@@ -104,7 +104,6 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         try{
                             JSONObject jsonResponse = new JSONObject(response);
-                            Log.e("response",jsonResponse.toString());
                             boolean success = jsonResponse.getBoolean("success");
                             if(success){
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);

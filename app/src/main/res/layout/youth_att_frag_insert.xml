@@ -39,31 +39,31 @@
         <TextView
             android:layout_width="20dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20"
+            android:layout_weight="32"
             android:text="이름">
         </TextView>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="16"
+            android:layout_weight="13"
             android:text="주일오전">
         </TextView>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="16"
+            android:layout_weight="13"
             android:text="주일오후">
         </TextView>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="16"
+            android:layout_weight="13"
             android:text="사랑방"></TextView>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="16"
+            android:layout_weight="13"
             android:text="교육훈련"></TextView>
 
         <TextView

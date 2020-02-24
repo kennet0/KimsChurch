@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -78,7 +79,7 @@ public class MemberCardActivity extends AppCompatActivity {
                         att4 = object.getString("att4");
                         att5 = object.getString("att5");
 
-                        attDTOList.add(new AttDTO(att_pnum, null, att_date, att1,att2,att3,att4,att5));
+                        attDTOList.add(new AttDTO(2,att_pnum, null, att_date, att1,att2,att3,att4,att5));
                         count++;
                     }
                 }catch (JSONException e){

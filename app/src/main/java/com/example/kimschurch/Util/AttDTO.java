@@ -1,6 +1,9 @@
 package com.example.kimschurch.Util;
 
 public class AttDTO {
+
+
+    private int tag;
     private String pnum;
     private String name;
     private String att_date;
@@ -10,7 +13,8 @@ public class AttDTO {
     private String att4;
     private String att5;
 
-    public AttDTO(String pnum, String name, String att_date, String att1, String att2, String att3, String att4, String att5) {
+    public AttDTO(int tag, String pnum, String name, String att_date, String att1, String att2, String att3, String att4, String att5) {
+        this.tag = tag;
         this.pnum = pnum;
         this.name = name;
         this.att_date = att_date;
@@ -20,7 +24,13 @@ public class AttDTO {
         this.att4 = att4;
         this.att5 = att5;
     }
+    public int getTag() {
+        return tag;
+    }
 
+    public void setTag(int tag) {
+        this.tag = tag;
+    }
     public String getPnum() {
         return pnum;
     }

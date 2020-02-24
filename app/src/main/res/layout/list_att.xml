@@ -16,35 +16,35 @@
             android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:text="장동현"
-            android:layout_weight="20"
+            android:layout_weight="32"
             >
         </TextView>
         <CheckBox
             android:id="@+id/chb_att1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="16"
+            android:layout_weight="13"
             >
         </CheckBox>
         <CheckBox
             android:id="@+id/chb_att2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="16"
+            android:layout_weight="13"
             >
         </CheckBox>
         <CheckBox
             android:id="@+id/chb_att3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="16"
+            android:layout_weight="13"
             >
         </CheckBox>
         <CheckBox
             android:id="@+id/chb_att4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="16"
+            android:layout_weight="13"
             >
         </CheckBox>
         <CheckBox
