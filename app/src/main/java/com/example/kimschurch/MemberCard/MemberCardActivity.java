@@ -5,7 +5,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,7 +24,7 @@ public class MemberCardActivity extends AppCompatActivity {
 
     public static FragmentManager fragmentManager;
     private MemberDTO memberDTO;
-    private List<AttDTO> attDTOList;
+    private ArrayList<AttDTO> attDTOList;
 
 
     @Override
@@ -80,7 +79,6 @@ public class MemberCardActivity extends AppCompatActivity {
                         att5 = object.getString("att5");
 
                         attDTOList.add(new AttDTO(att_pnum, null, att_date, att1,att2,att3,att4,att5));
-                        Log.e("attDTO", object.toString());
                         count++;
                     }
                 }catch (JSONException e){
@@ -91,11 +89,10 @@ public class MemberCardActivity extends AppCompatActivity {
                 FragmentTransaction fragmentTransaction =fragmentManager.beginTransaction();
 
                 FragMember fragMember = FragMember.newInstance(memberDTO);
-                FragAttInfo fragAttInfo = FragAttInfo.newInstance();
+                FragAttInfo fragAttInfo = FragAttInfo.newInstance(attDTOList);
 
                 fragmentTransaction.add(R.id.frag_containerA, fragMember, null);
                 fragmentTransaction.add(R.id.frag_containerB, fragAttInfo, null);
-
                 fragmentTransaction.commit();
             }
         });

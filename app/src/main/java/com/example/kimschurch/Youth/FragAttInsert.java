@@ -32,7 +32,7 @@ public class FragAttInsert extends Fragment {
 
     private View view;
     private ListView listView;
-    private List<AttDTO> attDTOList;
+    private ArrayList<AttDTO> attDTOList;
     private AttListAdapter attListAdapter;
     private String weekCheck ="";
 

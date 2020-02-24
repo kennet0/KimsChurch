@@ -18,14 +18,15 @@ import com.example.kimschurch.Youth.YouthUpdateRequest;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AttListAdapter extends BaseAdapter {
 
     private Context context;
-    private List<AttDTO> attDTOList;
+    private ArrayList<AttDTO> attDTOList;
 
-    public AttListAdapter(Context context, List<AttDTO> attDTOList) {
+    public AttListAdapter(Context context, ArrayList<AttDTO> attDTOList) {
         this.context = context;
         this.attDTOList = attDTOList;
     }

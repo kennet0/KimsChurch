@@ -102,23 +102,22 @@ public class FragMember extends Fragment {
 
 
 
-
         //달력변환
         btnBirthdayCal.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
-            @Override
-            public void onClick(View v) {
-                if(birthdayCal.equals("음")){
-                    String solarBirthday = Calculator.Solar2Lunar(birthday);
-                    txtbirthday.setText(solarBirthday);
-                    txtbirthdayCal.setText("양");
+                @RequiresApi(api = Build.VERSION_CODES.N)
+                @Override
+                public void onClick(View v) {
+                    if (txtbirthdayCal.getText().toString().equals("음")) {
+                        String solarBirthday = Calculator.Solar2Lunar(birthday);
+                        txtbirthday.setText(solarBirthday);
+                        txtbirthdayCal.setText("양");
 
-                }else{
-                    txtbirthday.setText(birthday);
-                    txtbirthdayCal.setText(birthdayCal);
+                    }else{
+                        txtbirthday.setText(birthday);
+                        txtbirthdayCal.setText(birthdayCal);
+                    }
                 }
-            }
-        });
+            });
 
         //수정버튼
         btnUpdate.setOnClickListener(new View.OnClickListener() {
