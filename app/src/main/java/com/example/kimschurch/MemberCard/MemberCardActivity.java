@@ -4,13 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.example.kimschurch.R;
+import com.example.kimschurch.Register.RegisterActivity;
 import com.example.kimschurch.Util.AttDTO;
 import com.example.kimschurch.Util.MemberDTO;
 
@@ -44,65 +48,27 @@ public class MemberCardActivity extends AppCompatActivity {
             }
         }
         fragmentManager = getSupportFragmentManager();
-
-        String intentPnum = getIntent().getStringExtra("pnum");
-        String intentName = getIntent().getStringExtra("name");
-        String intentPhone = getIntent().getStringExtra("phone");
-        String intentSex = getIntent().getStringExtra("sex");
-        String intentPosition = getIntent().getStringExtra("position");
-        String intentDepartment = getIntent().getStringExtra("department");
-        String intentPart = getIntent().getStringExtra("part");
-        String intentSrbName =getIntent().getStringExtra("srbName");
-        String intentSrbLeader = getIntent().getStringExtra("srbLeader");
-        String intentWork = getIntent().getStringExtra("work");
-        String intentBirthday = getIntent().getStringExtra("birthday");
-        String intentBirthdayCal = getIntent().getStringExtra("birthdayCal");
-        String intentEtc = getIntent().getStringExtra("etc");
+        final String intentPnum = getIntent().getStringExtra("pnum");
+        final String intentName = getIntent().getStringExtra("name");
+        final String intentPhone = getIntent().getStringExtra("phone");
+        final String intentSex = getIntent().getStringExtra("sex");
+        final String intentPosition = getIntent().getStringExtra("position");
+        final String intentDepartment = getIntent().getStringExtra("department");
+        final String intentPart = getIntent().getStringExtra("part");
+        final String intentSrbName =getIntent().getStringExtra("srbName");
+        final String intentSrbLeader = getIntent().getStringExtra("srbLeader");
+        final String intentWork = getIntent().getStringExtra("work");
+        final String intentBirthday = getIntent().getStringExtra("birthday");
+        final String intentBirthdayCal = getIntent().getStringExtra("birthdayCal");
+        final String intentEtc = getIntent().getStringExtra("etc");
         memberDTO = new MemberDTO(intentPnum,intentName,intentPhone,intentSex, intentPosition,intentDepartment,intentPart,intentSrbName,intentSrbLeader,intentWork,intentBirthday,intentBirthdayCal,intentEtc);
 
-        Response.Listener<String> responseListener = (new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try{
-                    attDTOList = new ArrayList<>();
-                    JSONObject jsonObject = new JSONObject(response);
-                    JSONArray jsonArray = jsonObject.getJSONArray("response");
-                    int count = 0;
-                    String att_pnum, att_date, att1,att2,att3,att4,att5;
-                    while (count<jsonArray.length()){
-                        JSONObject object = jsonArray.getJSONObject(count);
-                        att_pnum = object.getString("pnum");
-                        att_date = object.getString("att_date");
-                        att1 = object.getString("att1");
-                        att2 = object.getString("att2");
-                        att3 = object.getString("att3");
-                        att4 = object.getString("att4");
-                        att5 = object.getString("att5");
+        FragmentTransaction fragmentTransaction =fragmentManager.beginTransaction();
+        FragMember fragMember = FragMember.newInstance(memberDTO);
+        FragAttInfo fragAttInfo = FragAttInfo.newInstance(intentPnum);
 
-                        attDTOList.add(new AttDTO(2,att_pnum, null, att_date, att1,att2,att3,att4,att5));
-                        count++;
-                    }
-                }catch (JSONException e){
-                    e.getStackTrace();
-                }
-
-
-                FragmentTransaction fragmentTransaction =fragmentManager.beginTransaction();
-
-                FragMember fragMember = FragMember.newInstance(memberDTO);
-                FragAttInfo fragAttInfo = FragAttInfo.newInstance(attDTOList);
-
-                fragmentTransaction.add(R.id.frag_containerA, fragMember, null);
-                fragmentTransaction.add(R.id.frag_containerB, fragAttInfo, null);
-                fragmentTransaction.commit();
-            }
-        });
-        MemberCardAttRequest memberCardAttRequest = new MemberCardAttRequest(intentPnum, responseListener);
-        RequestQueue queue = Volley.newRequestQueue(MemberCardActivity.this);
-        queue.add(memberCardAttRequest);
-
-
-
-
+        fragmentTransaction.add(R.id.frag_containerA, fragMember, null);
+        fragmentTransaction.add(R.id.frag_containerB, fragAttInfo, null);
+        fragmentTransaction.commit();
     }
 }

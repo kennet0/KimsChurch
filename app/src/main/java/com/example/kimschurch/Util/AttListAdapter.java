@@ -57,15 +57,7 @@ public class AttListAdapter extends BaseAdapter {
         final CheckBox chb_att4 = youth_list.findViewById(R.id.chb_att4);
         final CheckBox chb_att5 = youth_list.findViewById(R.id.chb_att5);
 
-
-        switch (attDTOList.get(i).getTag()){
-            case 1 :
-                att_name.setText(attDTOList.get(i).getName());
-                break;
-            case 2 :
-                att_name.setText(attDTOList.get(i).getAtt_date());
-                break;
-        }
+        att_name.setText(attDTOList.get(i).getName());
 
         if(attDTOList.get(i).getAtt1().equals("1")) { chb_att1.setChecked(false);}
         else{chb_att1.setChecked(true);}

@@ -1,6 +1,8 @@
 package com.example.kimschurch.Util;
 
-public class AttDTO {
+import java.io.Serializable;
+
+public class AttDTO implements Serializable {
 
 
     private int tag;
@@ -12,8 +14,13 @@ public class AttDTO {
     private String att3;
     private String att4;
     private String att5;
+    private String att5a;
+    private String att5b;
+    private String att5c;
+    private String att_etc;
 
-    public AttDTO(int tag, String pnum, String name, String att_date, String att1, String att2, String att3, String att4, String att5) {
+
+    public AttDTO(int tag, String pnum, String name, String att_date, String att1, String att2, String att3, String att4, String att5, String att5a, String att5b, String att5c, String att_etc) {
         this.tag = tag;
         this.pnum = pnum;
         this.name = name;
@@ -23,6 +30,10 @@ public class AttDTO {
         this.att3 = att3;
         this.att4 = att4;
         this.att5 = att5;
+        this.att5a = att5a;
+        this.att5b = att5b;
+        this.att5c = att5c;
+        this.att_etc = att_etc;
     }
     public int getTag() {
         return tag;
@@ -31,6 +42,7 @@ public class AttDTO {
     public void setTag(int tag) {
         this.tag = tag;
     }
+
     public String getPnum() {
         return pnum;
     }
@@ -93,5 +105,37 @@ public class AttDTO {
 
     public void setAtt5(String att5) {
         this.att5 = att5;
+    }
+
+    public String getAtt5a() {
+        return att5a;
+    }
+
+    public void setAtt5a(String att5a) {
+        this.att5a = att5a;
+    }
+
+    public String getAtt5b() {
+        return att5b;
+    }
+
+    public void setAtt5b(String att5b) {
+        this.att5b = att5b;
+    }
+
+    public String getAtt5c() {
+        return att5c;
+    }
+
+    public void setAtt5c(String att5c) {
+        this.att5c = att5c;
+    }
+
+    public String getAtt_etc() {
+        return att_etc;
+    }
+
+    public void setAtt_etc(String att_etc) {
+        this.att_etc = att_etc;
     }
 }

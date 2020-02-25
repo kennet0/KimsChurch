@@ -110,7 +110,6 @@ public class FragMember extends Fragment {
         txtetc.setText(etc);
 
 
-
         //달력변환
         btnBirthdayCal.setOnClickListener(new View.OnClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.N)
@@ -137,6 +136,7 @@ public class FragMember extends Fragment {
                 intent.putExtra("pnum",pnum);
                 intent.putExtra("name",name);
                 intent.putExtra("sex",sex);
+                intent.putExtra("phone",phone);
                 intent.putExtra("position",position);
                 intent.putExtra("department",department);
                 intent.putExtra("part",part);
@@ -163,7 +163,6 @@ public class FragMember extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-
                     }
                 };
                 String work = txtwork.getText().toString();

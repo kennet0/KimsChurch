@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="100"
+    >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/txt_att_date"
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:text="2020.1.4주차"
+                    android:layout_weight="32"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="20dp"
+                    >
+                </TextView>
+                <CheckBox
+                    android:text="문자"
+                    android:id="@+id/chb_att5a"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="12"
+                    >
+                </CheckBox>
+                <CheckBox
+                    android:text="전화"
+                    android:id="@+id/chb_att5b"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="12"
+                    >
+                </CheckBox>
+                <CheckBox
+                    android:text="방문"
+                    android:id="@+id/chb_att5c"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    >
+                </CheckBox>
+
+        </LinearLayout>
+        <EditText
+            android:id="@+id/txt_att_etc"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:hint="심방내역"
+            android:textSize="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </EditText>
+
+</LinearLayout>

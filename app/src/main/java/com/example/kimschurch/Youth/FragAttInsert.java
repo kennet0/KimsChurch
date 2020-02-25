@@ -2,6 +2,7 @@ package com.example.kimschurch.Youth;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,7 +27,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class FragAttInsert extends Fragment {
 
@@ -50,7 +50,7 @@ public class FragAttInsert extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.youth_att_frag_insert, container, false);
 
-        final TextView att_date = view.findViewById(R.id.att_date); //주별 날짜
+        final TextView att_date = view.findViewById(R.id.txt_att_date); //주별 날짜
         Button btn_att_reset = view.findViewById(R.id.btn_att_reset); //리셋버튼
         listView = view.findViewById(R.id.youth_list_att);
 
@@ -65,7 +65,6 @@ public class FragAttInsert extends Fragment {
                         attDTOList = new ArrayList<>();
                         JSONObject jsonResponse = new JSONObject(response);
                         JSONArray jsonArray = jsonResponse.getJSONArray("response");
-
                         int count = 0;
                         String name, pnum, date, att1, att2, att3, att4, att5;
                         while (count < jsonArray.length()){
@@ -78,7 +77,8 @@ public class FragAttInsert extends Fragment {
                             att3 = object.getString("att3");
                             att4 = object.getString("att4");
                             att5 = object.getString("att5");
-                            attDTOList.add(new AttDTO(1,pnum, name, date, att1, att2, att3, att4, att5));
+
+                            attDTOList.add(new AttDTO(1,pnum, name, date, att1, att2, att3, att4, att5, null,null,null,null));
                             count++;
                         }
                         attListAdapter = new AttListAdapter(getContext(), attDTOList);

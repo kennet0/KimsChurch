@@ -6,27 +6,21 @@ import com.android.volley.toolbox.StringRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public class YouthUpdateRequest extends StringRequest {
+public class YouthVisitUpdateRequest extends StringRequest {
 
-    final static private String URL = "http://112.186.116.16:6011/YouthUpdate.php";
+    final static private String URL = "http://112.186.116.16:6011/YouthVisitUpdate.php";
     private Map<String, String>  parameters;
 
-    public YouthUpdateRequest(String pnum, String name, String date, String att1, String att2, String att3, String att4, String att5, Response.Listener<String> listener) {
+    public YouthVisitUpdateRequest(String pnum, String name, String date, String att5a, String att5b, String att5c, Response.Listener<String> listener) {
 
         super(Method.POST, URL, listener, null);
         parameters = new HashMap<>();
         parameters.put("pnum", pnum);
         parameters.put("name", name);
         parameters.put("date", date);
-        parameters.put("att1", att1);
-        parameters.put("att2", att2);
-        parameters.put("att3", att3);
-        parameters.put("att4", att4);
-        parameters.put("att5", att5);
-
-
-
-       
+        parameters.put("att5a", att5a);
+        parameters.put("att5b", att5b);
+        parameters.put("att5c", att5c);
     }
 
     @Override

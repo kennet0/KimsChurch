@@ -23,7 +23,6 @@ public class FragAttCheck extends Fragment {
 
         FragAttCheck fragAttCheck = new FragAttCheck();
 
-
         return fragAttCheck;
     }
 
