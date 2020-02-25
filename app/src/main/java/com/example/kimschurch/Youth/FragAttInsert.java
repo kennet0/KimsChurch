@@ -65,8 +65,9 @@ public class FragAttInsert extends Fragment {
                         attDTOList = new ArrayList<>();
                         JSONObject jsonResponse = new JSONObject(response);
                         JSONArray jsonArray = jsonResponse.getJSONArray("response");
+                        Log.e("attInsertJsonArray", jsonArray.toString());
                         int count = 0;
-                        String name, pnum, date, att1, att2, att3, att4, att5;
+                        String name, pnum, date, att1, att2, att3, att4, att5, att5a, att5b, att5c;
                         while (count < jsonArray.length()){
                             JSONObject object =jsonArray.getJSONObject(count);
                             pnum = object.getString("pnum");
@@ -77,8 +78,11 @@ public class FragAttInsert extends Fragment {
                             att3 = object.getString("att3");
                             att4 = object.getString("att4");
                             att5 = object.getString("att5");
+                            att5a = object.getString("att5a");
+                            att5b = object.getString("att5b");
+                            att5c = object.getString("att5c");
 
-                            attDTOList.add(new AttDTO(1,pnum, name, date, att1, att2, att3, att4, att5, null,null,null,null));
+                            attDTOList.add(new AttDTO(1,pnum, name, date, att1, att2, att3, att4, att5, att5a,att5b,att5c,null));
                             count++;
                         }
                         attListAdapter = new AttListAdapter(getContext(), attDTOList);

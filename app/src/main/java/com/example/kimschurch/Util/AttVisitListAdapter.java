@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -55,6 +56,7 @@ public class AttVisitListAdapter extends BaseAdapter {
         final CheckBox chb_att5b = youth_list.findViewById(R.id.chb_att5b);
         final CheckBox chb_att5c = youth_list.findViewById(R.id.chb_att5c);
         final EditText txt_att_etc = youth_list.findViewById(R.id.txt_att_etc);
+        Button btn_att_etc_update = youth_list.findViewById(R.id.btn_att_etc_update);
 
 
         txt_att_date.setText(attDTOList.get(i).getAtt_date());
@@ -165,6 +167,13 @@ public class AttVisitListAdapter extends BaseAdapter {
                 queue.add(youthVisitUpdateRequest);
             }
         });
+
+//        btn_att_etc_update.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
 
         return youth_list;
     }

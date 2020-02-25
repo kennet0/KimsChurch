@@ -6,10 +6,16 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -35,6 +41,7 @@ public class FragAttInfo extends Fragment {
     private AttVisitListAdapter attVisitListAdapter;
     private ArrayList<AttDTO> attDTOList;
     private String intentPnum;
+    static int staticCount= 0;
 
     public static FragAttInfo newInstance(String intentPnum){
         FragAttInfo fragAttInfo = new FragAttInfo();
@@ -50,10 +57,14 @@ public class FragAttInfo extends Fragment {
         View view = inflater.inflate(R.layout.membercard_frag_att_info, container, false);
 
         Button btnMore = view.findViewById(R.id.membercard_btnMore);
+        Button btnLess = view.findViewById(R.id.membercard_btnLess);
+        Button btnSearch = view.findViewById(R.id.membercard_btnSearch);
+        final EditText txtSearch = view.findViewById(R.id.membercard_txtSearch);
+
         intentPnum = getArguments().getString("intentPnum");
         listView = view.findViewById(R.id.membercard_frag_listview);
+//
 
-        Log.e("intentPnum",intentPnum);
         final Response.Listener<String> responseListener = (new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -61,6 +72,7 @@ public class FragAttInfo extends Fragment {
                     attDTOList = new ArrayList<>();
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("response");
+                    Log.e("jsonArray", jsonArray.toString());
                     int count = 0;
                     String att_pnum, att_date, att5a, att5b, att5c, att_etc;
                     while (count < jsonArray.length()) {
@@ -80,24 +92,69 @@ public class FragAttInfo extends Fragment {
 
                 attVisitListAdapter = new AttVisitListAdapter(getContext(), attDTOList);
                 listView.setAdapter(attVisitListAdapter);
+                setListViewHeightBasedOnChildren(listView);
             }
         });
 
-        MemberCardAttRequest memberCardAttRequest = new MemberCardAttRequest(intentPnum, responseListener);
+        MemberCardAttRequest memberCardAttRequest = new MemberCardAttRequest(intentPnum, "2" ,"", responseListener);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(memberCardAttRequest);
 
-//        btnMore.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                MemberCardAttRequest memberCardAttRequest = new MemberCardAttRequest(intentPnum, responseListener);
-//                RequestQueue queue = Volley.newRequestQueue(getActivity());
-//                queue.add(memberCardAttRequest);
-//            }
-//        });
+        btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                staticCount += 2;
+                String count = String.valueOf(staticCount);
+                MemberCardAttRequest memberCardAttRequest = new MemberCardAttRequest(intentPnum, count, "", responseListener);
+                RequestQueue queue = Volley.newRequestQueue(getActivity());
+                queue.add(memberCardAttRequest);
+            }
+        });
+        btnLess.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                staticCount -= 2;
+                String count = String.valueOf(staticCount);
+                MemberCardAttRequest memberCardAttRequest = new MemberCardAttRequest(intentPnum, count, "", responseListener);
+                RequestQueue queue = Volley.newRequestQueue(getActivity());
+                queue.add(memberCardAttRequest);
+            }
+        });
 
+        btnSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String search = txtSearch.getText().toString();
+                MemberCardAttRequest memberCardAttRequest = new MemberCardAttRequest(intentPnum, "1000", search, responseListener);
+                RequestQueue queue = Volley.newRequestQueue(getActivity());
+                queue.add(memberCardAttRequest);
+            }
+        });
 
 
         return view;
     }
+
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null) {
+        // pre-condition
+            return;
+        }
+
+        int totalHeight = 0;
+        int desiredWidth = View.MeasureSpec.makeMeasureSpec(listView.getWidth(), View.MeasureSpec.AT_MOST);
+
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            View listItem = listAdapter.getView(i, null, listView);
+            listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
+            totalHeight += (listItem.getMeasuredHeight()-550);
+        }
+
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+    }
+
 }

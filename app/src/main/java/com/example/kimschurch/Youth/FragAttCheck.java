@@ -38,8 +38,6 @@ public class FragAttCheck extends Fragment {
                Intent intent = new Intent(getActivity(), YouthActivity.class);
                intent.putExtra("date", date);
                startActivity(intent);
-
-
             }
         });
 

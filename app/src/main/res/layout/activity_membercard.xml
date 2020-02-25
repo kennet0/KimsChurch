@@ -1,36 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <FrameLayout
-        android:id="@+id/frag_containerA"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/membercard_scrollView"
+    android:fillViewport="true"
+    >
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </FrameLayout>
+        android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="심방내역"
-        android:textSize="20dp"
-        android:gravity="center"
-        >
-    </TextView>
-    <FrameLayout
-        android:id="@+id/frag_containerB"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </FrameLayout>
-
-<!--    <Button-->
-<!--        android:id="@+id/card_btn_update"-->
-<!--        android:layout_marginLeft="20dp"-->
-<!--        android:layout_marginRight="20dp"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="수 정">-->
-<!--    </Button>-->
-
-</LinearLayout>
-
+        <FrameLayout
+            android:id="@+id/frag_containerA"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </FrameLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="심방내역"
+            android:textSize="20dp"
+            android:gravity="center"
+            >
+        </TextView>
+        <FrameLayout
+            android:id="@+id/frag_containerB"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </FrameLayout>
+    </LinearLayout>
+</ScrollView>

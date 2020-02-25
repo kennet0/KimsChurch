@@ -67,13 +67,12 @@ public class AttListAdapter extends BaseAdapter {
         else{chb_att3.setChecked(true);}
         if(attDTOList.get(i).getAtt4().equals("1")) { chb_att4.setChecked(false);}
         else{chb_att4.setChecked(true);}
-        if(attDTOList.get(i).getAtt5().equals("1")) { chb_att5.setChecked(false);}
+        if(attDTOList.get(i).getAtt5a().equals("1") && attDTOList.get(i).getAtt5b().equals("1") && attDTOList.get(i).getAtt5c().equals("1")) { chb_att4.setChecked(false);}
         else{chb_att5.setChecked(true);}
+
         youth_list.setTag(attDTOList.get(i).getName());
 
-
         //DB 연동
-
         final Response.Listener<String> listener = new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -206,37 +205,34 @@ public class AttListAdapter extends BaseAdapter {
         });
 
         //att5
-        chb_att5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                YouthUpdateRequest youthUpdateRequest;
-                if(chb_att5.isChecked()){
-                    youthUpdateRequest =
-                            new YouthUpdateRequest(
-                                    attDTOList.get(i).getPnum(),
-                                    "", attDTOList.get(i).getAtt_date(),"",
-                                    "","","",
-                                    "2", listener);
-                    Log.e("checkbox","checked");
-
-
-                }else {
-                    youthUpdateRequest =
-                            new YouthUpdateRequest(
-                                    attDTOList.get(i).getPnum(),
-                                    "", attDTOList.get(i).getAtt_date(),"",
-                                    "","","",
-                                    "1",listener);
-                    Log.e("checkbox","unchecked");
-                }
-                RequestQueue queue = Volley.newRequestQueue(context);
-                queue.add(youthUpdateRequest);
-            }
-        });
-
-
-
+//        chb_att5.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                YouthUpdateRequest youthUpdateRequest;
+//                if(chb_att5.isChecked()){
+//                    youthUpdateRequest =
+//                            new YouthUpdateRequest(
+//                                    attDTOList.get(i).getPnum(),
+//                                    "", attDTOList.get(i).getAtt_date(),"",
+//                                    "","","",
+//                                    "2", listener);
+//                    Log.e("checkbox","checked");
+//
+//
+//                }else {
+//                    youthUpdateRequest =
+//                            new YouthUpdateRequest(
+//                                    attDTOList.get(i).getPnum(),
+//                                    "", attDTOList.get(i).getAtt_date(),"",
+//                                    "","","",
+//                                    "1",listener);
+//                    Log.e("checkbox","unchecked");
+//                }
+//                RequestQueue queue = Volley.newRequestQueue(context);
+//                queue.add(youthUpdateRequest);
+//            }
+//        });
 
 
         return youth_list;
