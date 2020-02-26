@@ -1,6 +1,7 @@
 package com.example.kimschurch.Util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,11 +10,16 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.example.kimschurch.Main.MainActivity;
 import com.example.kimschurch.R;
+import com.example.kimschurch.Register.RegisterActivity;
 import com.example.kimschurch.Youth.YouthUpdateRequest;
 import com.example.kimschurch.Youth.YouthVisitUpdateRequest;
 
@@ -56,7 +62,7 @@ public class AttVisitListAdapter extends BaseAdapter {
         final CheckBox chb_att5b = youth_list.findViewById(R.id.chb_att5b);
         final CheckBox chb_att5c = youth_list.findViewById(R.id.chb_att5c);
         final EditText txt_att_etc = youth_list.findViewById(R.id.txt_att_etc);
-        Button btn_att_etc_update = youth_list.findViewById(R.id.btn_att_etc_update);
+        final Button btn_att_etc_update = youth_list.findViewById(R.id.btn_att_etc_update);
 
 
         txt_att_date.setText(attDTOList.get(i).getAtt_date());
@@ -79,10 +85,17 @@ public class AttVisitListAdapter extends BaseAdapter {
             @Override
             public void onResponse(String response) {
 
-                try {
+                try{
                     JSONObject jsonResponse = new JSONObject(response);
-                    Log.e("response",jsonResponse.toString());
-                } catch (JSONException e) {
+                    Log.e("jsonresponse",jsonResponse.toString());
+                    boolean success = jsonResponse.getBoolean("success");
+
+                    if(success){
+                        Toast.makeText(context, "성공", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(context, "실패", Toast.LENGTH_SHORT).show();
+                    }
+                }catch (JSONException e){
                     e.printStackTrace();
                 }
             }
@@ -100,14 +113,14 @@ public class AttVisitListAdapter extends BaseAdapter {
                             new YouthVisitUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),
-                                    "2","","",listener);
+                                    "2","","","",listener);
                     Log.e("checkbox","checked");
                 }else {
                     youthVisitUpdateRequest =
                             new YouthVisitUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),
-                                    "1","","",listener);
+                                    "1","","","",listener);
                     Log.e("checkbox","unchecked");
                 }
                 RequestQueue queue = Volley.newRequestQueue(context);
@@ -126,14 +139,14 @@ public class AttVisitListAdapter extends BaseAdapter {
                             new YouthVisitUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),
-                                    "","2","",listener);
+                                    "","2","","",listener);
                     Log.e("checkbox","checked");
                 }else {
                     youthVisitUpdateRequest =
                             new YouthVisitUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),
-                                    "","1","",listener);
+                                    "","1","","",listener);
                     Log.e("checkbox","unchecked");
                 }
                 RequestQueue queue = Volley.newRequestQueue(context);
@@ -152,7 +165,7 @@ public class AttVisitListAdapter extends BaseAdapter {
                             new YouthVisitUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),
-                                    "","","2",listener);
+                                    "","","2","",listener);
                     Log.e("checkbox","checked");
 
                 }else {
@@ -160,7 +173,7 @@ public class AttVisitListAdapter extends BaseAdapter {
                             new YouthVisitUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),
-                                    "","","1",listener);
+                                    "","","1","",listener);
                     Log.e("checkbox","unchecked");
                 }
                 RequestQueue queue = Volley.newRequestQueue(context);
@@ -168,12 +181,18 @@ public class AttVisitListAdapter extends BaseAdapter {
             }
         });
 
-//        btn_att_etc_update.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        btn_att_etc_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                YouthVisitUpdateRequest youthVisitUpdateRequest =
+                        new YouthVisitUpdateRequest(
+                                attDTOList.get(i).getPnum(),
+                                "", attDTOList.get(i).getAtt_date(),
+                                "","","",txt_att_etc.getText().toString(),listener);
+                RequestQueue queue = Volley.newRequestQueue(context);
+                queue.add(youthVisitUpdateRequest);
+            }
+        });
 
         return youth_list;
     }
