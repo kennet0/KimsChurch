@@ -61,8 +61,6 @@ public class MemberListAdapter extends BaseAdapter{
 
         search_list_view.setTag(memberDTOList.get(i).getName());
 
-
-
         return search_list_view;
     }
 

@@ -14,20 +14,29 @@
         <FrameLayout
             android:id="@+id/frag_containerA"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </FrameLayout>
+            android:layout_height="wrap_content"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="심방내역"
-            android:textSize="20dp"
-            android:gravity="center"
-            >
-        </TextView>
+            android:textSize="25dp"
+            android:gravity="center"/>
         <FrameLayout
             android:id="@+id/frag_containerB"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-        </FrameLayout>
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/memberCard_text"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="가족"
+            android:textSize="25dp"
+            android:gravity="center"/>
+        <FrameLayout
+            android:id="@+id/frag_containerC"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
     </LinearLayout>
 </ScrollView>

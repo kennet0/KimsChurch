@@ -3,6 +3,10 @@ package com.example.kimschurch.Util;
 import android.icu.util.ChineseCalendar;
 import android.os.Build;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
 import androidx.annotation.RequiresApi;
 
@@ -15,7 +19,6 @@ public class Calculator {
         Calendar calendar = new GregorianCalendar(Locale.KOREA);
         int subBirthday = Integer.parseInt(birthday.substring(0,4));
         int year = calendar.get(Calendar.YEAR);
-        Log.e("subBirthday", String.valueOf(subBirthday));
         String age = Integer.toString(year - subBirthday + 1);
         return age;
     }

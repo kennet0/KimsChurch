@@ -363,37 +363,38 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="100">
+           <AutoCompleteTextView
+               android:id="@+id/txtFamily_parent"
+               android:hint="부모"
+               android:layout_width="70dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="20"/>
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_couple"
+                android:hint="부부"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_sibling"
+                android:hint="형제"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_child"
+                android:hint="자식"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_etc"
+                android:hint="기타"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="부"
-                android:layout_weight="20">
-            </CheckBox>
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="모"
-                android:layout_weight="20">
-            </CheckBox>
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="형제"
-                android:layout_weight="20">
-            </CheckBox>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="기타"
-                android:textSize="15dp"
-                >
-            </TextView>
-            <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="40">
-            </EditText>
+
         </LinearLayout>
 
         <!--특이사항-->

@@ -1,22 +1,20 @@
 package com.example.kimschurch.Main;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.android.volley.Response;
 import com.example.kimschurch.Register.RegisterActivity;
 import com.example.kimschurch.Search.SearchActivity;
 import com.example.kimschurch.R;
+import com.example.kimschurch.Search.SearchRequest;
 import com.example.kimschurch.Youth.YouthActivity;
 
 import java.io.BufferedReader;
@@ -30,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnSearch, btnYouth ,btnSenior,btnFindMember,btnInsertMember;
     EditText txtSearch;
-    String searchName, searchSRBName = "";
+    String searchName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
         btnInsertMember = findViewById(R.id.btnInsertMember);
         txtSearch = findViewById(R.id.txtSearch);
 
-
         btnYouth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,15 +52,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
         // 교인등록버튼
         btnInsertMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(
-                        MainActivity.this, RegisterActivity.class);
-               startActivity(intent);
+                searchName = "";
+                String body = "name=" + searchName;
+                String url = "http://112.186.116.16:6011/Search.php";
+                new BackgroundTask(url,RegisterActivity.class, body).execute();
             }
         });
 
@@ -93,27 +89,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-//
-//        if(R.id.menu_btnHome ==item.getItemId()){
-//            Intent intentHome = new Intent(this, MainActivity.class);
-//            intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            intentHome.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//            startActivity(intentHome);
-//            finish();
-//            return true;
-//        }else {
-//            return super.onOptionsItemSelected(item);
-//        }
-//
-//    }
 
     class BackgroundTask extends AsyncTask<Void,Void,String> {
         String target;
@@ -174,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onPostExecute(String result){
             Intent intent = new Intent(MainActivity.this, context);
+            intent.putExtra("tag",1);
             intent.putExtra("result", result);
             Log.e("result", result);
             startActivity(intent);

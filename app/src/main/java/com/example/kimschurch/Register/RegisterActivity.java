@@ -7,13 +7,18 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,12 +28,15 @@ import com.android.volley.toolbox.Volley;
 import com.example.kimschurch.Main.MainActivity;
 import com.example.kimschurch.Util.ImageProcess;
 import com.example.kimschurch.R;
+import com.example.kimschurch.Util.MemberDTO;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -40,6 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
    RadioGroup rgPosition, rgDepartment,rgPart,rgSex, rgBirthdayCal;
    RadioButton btnPosition, btnDepartment, btnPart, btnSex, btnBirthdayCal;
    Button btnImage, btnRegister, btnRemove;
+   AutoCompleteTextView txtFamily_parent, txtFamily_couple,txtFamily_sibling,txtFamily_child,txtFamily_etc;
+   ArrayList<String> familyList;
 
 
     @Override
@@ -68,8 +78,20 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegister = findViewById(R.id.btnRegister);
         btnRemove = findViewById(R.id.btnRemove);
         btnRemove.setVisibility(View.GONE);
+        txtFamily_parent =findViewById(R.id.txtFamily_parent);
+        txtFamily_couple = findViewById(R.id.txtFamily_couple);
+        txtFamily_sibling = findViewById(R.id.txtFamily_sibling);
+        txtFamily_child = findViewById(R.id.txtFamily_child);
+        txtFamily_etc = findViewById(R.id.txtFamily_etc);
 
+        getFamilyList(getIntent());
         updateMember(getIntent());
+
+        txtFamily_parent.setAdapter(new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item, familyList));
+        txtFamily_couple.setAdapter(new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item, familyList));
+        txtFamily_sibling.setAdapter(new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item, familyList));
+        txtFamily_child.setAdapter(new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item, familyList));
+        txtFamily_etc.setAdapter(new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item, familyList));
 
         //이미지 등록 버튼
         btnImage.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +119,11 @@ public class RegisterActivity extends AppCompatActivity {
                 String srbLeader = txtSRBLeader.getText().toString();
                 String work = txtWork.getText().toString();
                 String birthday = txtBirthday.getText().toString();
+                String familyParent = txtFamily_parent.getText().toString();
+                String familyCouple = txtFamily_couple.getText().toString();
+                String familySibling = txtFamily_sibling.getText().toString();
+                String familyChild = txtFamily_child.getText().toString();
+                String familyEtc = txtFamily_etc.getText().toString();
                 String etc = txtEtc.getText().toString();
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -120,7 +147,8 @@ public class RegisterActivity extends AppCompatActivity {
                 };
 
                 RegisterRequest registerRequest =
-                        new RegisterRequest(image, pnum, name, phone, sex,position, department, part, srbName, srbLeader, work, birthday, birthdayCal, etc, responseListener);
+                        new RegisterRequest(image, pnum, name, phone, sex,position, department, part, srbName, srbLeader, work, birthday, birthdayCal,
+                                familyParent,familyCouple,familySibling,familyChild,familyEtc, etc, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(RegisterActivity.this);
                 queue.add(registerRequest);
             }
@@ -129,7 +157,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == 0 && resultCode == RESULT_OK) {
             try {
@@ -147,22 +175,73 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(R.id.menu_btnHome ==item.getItemId()){
+            Intent intentHome = new Intent(this, MainActivity.class);
+            intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intentHome.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intentHome);
+            finish();
+            return true;
+        }else {
+            return super.onOptionsItemSelected(item);
+        }
+
+    }
+    public void getFamilyList(Intent intent) {
+        if ((intent.getIntExtra("tag", 0) == 1)) {
+            try {
+                JSONObject jsonObject = new JSONObject(intent.getStringExtra("result"));
+                JSONArray jsonArray = jsonObject.getJSONArray("response");
+                familyList = new ArrayList<String>();
+                int count = 0;
+                String name ;
+                while (count < jsonArray.length()) {
+                    JSONObject object = jsonArray.getJSONObject(count);
+                    name = object.getString("name");
+                    familyList.add(name);
+                    count++;
+                }
+            }catch (JSONException e){
+                e.getStackTrace();
+            }
+
+        }
+    }
+
+
     //수정할 때
     public void updateMember(Intent intent){
-        if((intent.hasExtra("name"))){
-            pnum = intent.getStringExtra("pnum");
-            String intentName = intent.getStringExtra("name");
-            String intentPhone = intent.getStringExtra("phone");
-            String intentSex = intent.getStringExtra("sex");
-            String intentPosition = intent.getStringExtra("position");
-            String intentPart = intent.getStringExtra("part");
-            String intentDepartment = intent.getStringExtra("department");
-            String intentSrbName =intent.getStringExtra("srbName");
-            String intentSrbLeader = intent.getStringExtra("srbLeader");
-            String intentWork = intent.getStringExtra("work");
-            String intentBirthday = intent.getStringExtra("birthday");
-            String intentBirthdayCal = intent.getStringExtra("birthdayCal");
-            String intentEtc = intent.getStringExtra("etc");
+        if((intent.getIntExtra("tag",0)==2)){
+            MemberDTO memberDTO = (MemberDTO) intent.getSerializableExtra("memberDTO");
+
+            pnum = memberDTO.getPnum();
+            String intentName = memberDTO.getName();
+            String intentPhone = memberDTO.getPhone();
+            String intentSex = memberDTO.getSex();
+            String intentPosition = memberDTO.getPosition();
+            String intentDepartment = memberDTO.getDepartment();
+            String intentPart = memberDTO.getPart();
+            String intentSrbName = memberDTO.getSrbName();
+            String intentSrbLeader = memberDTO.getSrbLeader();
+            String intentWork = memberDTO.getWork();
+            String intentBirthday = memberDTO.getBirthday();
+            String intentBirthdayCal = memberDTO.getBirthdayCal();
+            String intentFamilyParent = memberDTO.getFamilyParent();
+            String intentFamilyCouple = memberDTO.getFamilyCouple();
+            String intentFamilySibling = memberDTO.getFamilySibling();
+            String intentFamilyChild = memberDTO.getFamilyChild();
+            String intentFamilyEtc =memberDTO.getFamilyEtc();
+            String intentEtc = memberDTO.getEtc();
+
 
             imageView = findViewById(R.id.imgView);
             ImageProcess.LoadCircleImage imageProcess = new ImageProcess.LoadCircleImage(imageView);
@@ -233,14 +312,18 @@ public class RegisterActivity extends AppCompatActivity {
                     rgBirthdayCal.check(R.id.rbSunCalander);
                     break;
             }
-            txtPhone.setText(intentPhone);
-            txtSRBName.setText(intentSrbName);
-            txtSRBLeader.setText(intentSrbLeader);
-            txtWork.setText(intentWork);
+            if (!(intentPhone.equals("null"))){txtPhone.setText(intentPhone);}
+            if (!(intentSrbName.equals("null"))){txtSRBName.setText(intentSrbName);}
+            if (!(intentSrbLeader.equals("null"))){txtSRBLeader.setText(intentSrbLeader);}
             txtBirthday.setText(intentBirthday);
-            if (!(intentEtc.equals("null"))){
-                txtEtc.setText(intentEtc);
-            }
+            if (!(intentWork.equals("null"))){txtWork.setText(intentWork);}
+            if (!(intentEtc.equals("null"))){ txtEtc.setText(intentEtc); }
+            if (!(intentFamilyParent.equals("null"))){txtFamily_parent.setText(intentFamilyParent);}
+            if (!(intentFamilyCouple.equals("null"))){txtFamily_couple.setText(intentFamilyCouple);}
+            if (!(intentFamilySibling.equals("null"))){txtFamily_sibling.setText(intentFamilySibling);}
+            if (!(intentFamilyChild.equals("null"))){txtFamily_child.setText(intentFamilyChild);}
+            if (!(intentFamilyEtc.equals("null"))){txtFamily_etc.setText(intentFamilyEtc);}
+
             btnRemove.setVisibility(View.VISIBLE);
             btnRemove.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -275,6 +358,8 @@ public class RegisterActivity extends AppCompatActivity {
             });
         }
     }
+
+
 
 
     public void radioCheck(View v){

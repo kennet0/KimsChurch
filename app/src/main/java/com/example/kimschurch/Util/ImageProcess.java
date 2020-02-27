@@ -16,7 +16,7 @@ public class ImageProcess {
 
     public String bitmapToString(Bitmap bitmap) {
         ByteArrayOutputStream baos=new  ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG,100, baos);    //bitmap compress
+        bitmap.compress(Bitmap.CompressFormat.JPEG,100, baos);    //bitmap compress
         byte [] arr=baos.toByteArray();
         return Base64.encodeToString(arr, Base64.DEFAULT);
          

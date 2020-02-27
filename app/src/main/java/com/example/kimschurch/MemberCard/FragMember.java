@@ -25,7 +25,6 @@ import com.example.kimschurch.Register.RegisterActivity;
 import com.example.kimschurch.Util.Calculator;
 import com.example.kimschurch.Util.ImageProcess;
 import com.example.kimschurch.Util.MemberDTO;
-import com.google.gson.JsonObject;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,24 +32,12 @@ import org.json.JSONObject;
 public class FragMember extends Fragment {
 
     private View view;
+    private MemberDTO memberDTO;
 
     public static FragMember newInstance(MemberDTO memberDTO) {
         FragMember fragMember = new FragMember();
         Bundle args =new Bundle();
-
-        args.putString("pnum",memberDTO.getPnum());
-        args.putString("name", memberDTO.getName());
-        args.putString("phone", memberDTO.getPhone());
-        args.putString("sex", memberDTO.getSex());
-        args.putString("position",memberDTO.getPosition());
-        args.putString("department",memberDTO.getDepartment());
-        args.putString("part",memberDTO.getPart());
-        args.putString("srbName",memberDTO.getSrbName());
-        args.putString("srbLeader",memberDTO.getSrbLeader());
-        args.putString("work",memberDTO.getWork());
-        args.putString("birthday",memberDTO.getBirthday());
-        args.putString("birthdayCal",memberDTO.getBirthdayCal());
-        args.putString("etc",memberDTO.getEtc());
+        args.putSerializable("memberDTO",memberDTO);
 
         fragMember.setArguments(args);
 
@@ -78,20 +65,28 @@ public class FragMember extends Fragment {
         Button btnBirthdayCal = view.findViewById(R.id.card_btn_convertCal);
         ImageView imageView = view.findViewById(R.id.card_imageview);
 
-        final String pnum = getArguments().getString("pnum");
-        final String name = getArguments().getString("name") ;
-        final String phone = getArguments().getString("phone");
-        final String sex = getArguments().getString("sex");
-        final String position = getArguments().getString("position");
-        final String department = getArguments().getString("department");
-        final String part = getArguments().getString("part");
-        final String srbName = getArguments().getString("srbName");
-        final String srbLeader = getArguments().getString("srbLeader");
-        final String work = getArguments().getString("work");
-        final String birthday = getArguments().getString("birthday");
-        final String birthdayCal = getArguments().getString("birthdayCal");
-        final String etc = getArguments().getString("etc");
-        String age = Calculator.calAge(getArguments().getString("birthday"));
+        memberDTO = (MemberDTO) getArguments().getSerializable("memberDTO");
+
+        final String pnum = memberDTO.getPnum();
+        final String name = memberDTO.getName();
+        final String phone = memberDTO.getPhone();
+        final String sex = memberDTO.getSex();
+        final String position = memberDTO.getPosition();
+        final String department = memberDTO.getDepartment();
+        final String part = memberDTO.getPart();
+        final String srbName = memberDTO.getSrbName();
+        final String srbLeader = memberDTO.getSrbLeader();
+        final String work = memberDTO.getWork();
+        final String birthday = memberDTO.getBirthday();
+        final String birthdayCal = memberDTO.getBirthdayCal();
+        final String familyFather = memberDTO.getFamilyParent();
+        final String familyMother = memberDTO.getFamilyCouple();
+        final String familySibling = memberDTO.getFamilySibling();
+        final String familyChild = memberDTO.getFamilyChild();
+        final String familyEtc =memberDTO.getFamilyEtc();
+        final String etc = memberDTO.getEtc();
+        final String age = Calculator.calAge(memberDTO.getBirthday());
+
 
         ImageProcess.LoadImage imageProcess = new ImageProcess.LoadImage(imageView);
         imageProcess.execute("http://112.186.116.16:6011/upload/" +
@@ -133,20 +128,8 @@ public class FragMember extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), RegisterActivity.class);
 
-                intent.putExtra("pnum",pnum);
-                intent.putExtra("name",name);
-                intent.putExtra("sex",sex);
-                intent.putExtra("phone",phone);
-                intent.putExtra("position",position);
-                intent.putExtra("department",department);
-                intent.putExtra("part",part);
-                intent.putExtra("phone",phone);
-                intent.putExtra("srbName",srbName);
-                intent.putExtra("srbLeader",srbLeader);
-                intent.putExtra("work",work);
-                intent.putExtra("birthday",birthday);
-                intent.putExtra("birthdayCal",birthdayCal);
-                intent.putExtra("etc",etc);
+                intent.putExtra("tag",2);
+                intent.putExtra("memberDTO",memberDTO);
                 startActivity(intent);
             }
         });
@@ -172,8 +155,6 @@ public class FragMember extends Fragment {
                 queue.add(memberCardEtcRequest);
             }
         });
-
-
 
         return view;
     }

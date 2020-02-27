@@ -1,21 +1,18 @@
 package com.example.kimschurch.MemberCard;
 
-import android.content.Intent;
+
 import android.os.Bundle;
 
 import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.ScrollView;
-import android.widget.TextView;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,8 +23,9 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.example.kimschurch.R;
 import com.example.kimschurch.Util.AttDTO;
-import com.example.kimschurch.Util.AttListAdapter;
 import com.example.kimschurch.Util.AttVisitListAdapter;
+import com.example.kimschurch.Util.Calculator;
+import com.example.kimschurch.Util.ImageProcess;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -72,7 +70,7 @@ public class FragAttInfo extends Fragment {
                     attDTOList = new ArrayList<>();
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("response");
-                    Log.e("jsonArray", jsonArray.toString());
+//                    Log.e("jsonArray", jsonArray.toString());
                     int count = 0;
                     String att_pnum, att_date, att5a, att5b, att5c, att_etc;
                     while (count < jsonArray.length()) {
@@ -138,7 +136,7 @@ public class FragAttInfo extends Fragment {
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();
         if (listAdapter == null) {
-        // pre-condition
+            // pre-condition
             return;
         }
 
@@ -148,7 +146,7 @@ public class FragAttInfo extends Fragment {
         for (int i = 0; i < listAdapter.getCount(); i++) {
             View listItem = listAdapter.getView(i, null, listView);
             listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
-            totalHeight += (listItem.getMeasuredHeight()-550);
+            totalHeight += (listItem.getMeasuredHeight()-350);
         }
 
         ViewGroup.LayoutParams params = listView.getLayoutParams();

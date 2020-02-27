@@ -1,11 +1,16 @@
 package com.example.kimschurch.Youth;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import com.example.kimschurch.Main.MainActivity;
 import com.example.kimschurch.R;
 import com.google.android.material.tabs.TabLayout;
 
@@ -38,8 +43,28 @@ public class YouthActivity extends AppCompatActivity {
         fragmentPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), date);
         viewPager.setAdapter(fragmentPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(R.id.menu_btnHome ==item.getItemId()){
+            Intent intentHome = new Intent(this, MainActivity.class);
+            intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intentHome.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intentHome);
+            finish();
+            return true;
+        }else {
+            return super.onOptionsItemSelected(item);
+        }
+
+    }
 }
 

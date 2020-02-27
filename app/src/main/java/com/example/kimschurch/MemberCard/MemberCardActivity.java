@@ -1,35 +1,29 @@
 package com.example.kimschurch.MemberCard;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
+import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.toolbox.Volley;
+import com.example.kimschurch.Main.MainActivity;
 import com.example.kimschurch.R;
-import com.example.kimschurch.Register.RegisterActivity;
-import com.example.kimschurch.Util.AttDTO;
 import com.example.kimschurch.Util.MemberDTO;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class MemberCardActivity extends AppCompatActivity {
 
     public static FragmentManager fragmentManager;
     private MemberDTO memberDTO;
-    private ArrayList<AttDTO> attDTOList;
+    private ArrayList<MemberDTO> memberDTOList,famliyMemberDTOList;
+    private ArrayList<String> stringArray;
 
 
     @Override
@@ -47,28 +41,82 @@ public class MemberCardActivity extends AppCompatActivity {
                 return;
             }
         }
+        if(findViewById(R.id.frag_containerC) !=null){
+            if(savedInstanceState!=null){
+                return;
+            }
+        }
         fragmentManager = getSupportFragmentManager();
-        final String intentPnum = getIntent().getStringExtra("pnum");
-        final String intentName = getIntent().getStringExtra("name");
-        final String intentPhone = getIntent().getStringExtra("phone");
-        final String intentSex = getIntent().getStringExtra("sex");
-        final String intentPosition = getIntent().getStringExtra("position");
-        final String intentDepartment = getIntent().getStringExtra("department");
-        final String intentPart = getIntent().getStringExtra("part");
-        final String intentSrbName =getIntent().getStringExtra("srbName");
-        final String intentSrbLeader = getIntent().getStringExtra("srbLeader");
-        final String intentWork = getIntent().getStringExtra("work");
-        final String intentBirthday = getIntent().getStringExtra("birthday");
-        final String intentBirthdayCal = getIntent().getStringExtra("birthdayCal");
-        final String intentEtc = getIntent().getStringExtra("etc");
-        memberDTO = new MemberDTO(intentPnum,intentName,intentPhone,intentSex, intentPosition,intentDepartment,intentPart,intentSrbName,intentSrbLeader,intentWork,intentBirthday,intentBirthdayCal,intentEtc);
+
+        memberDTO = (MemberDTO) getIntent().getSerializableExtra("memberDTO");
+        String intentPnum = memberDTO.getPnum();
+        memberDTOList = (ArrayList<MemberDTO>) getIntent().getSerializableExtra("memberDTOList");
+        famliyMemberDTOList = new ArrayList<>();
+        stringArray = new ArrayList<>();
+
+        int count = 0;
+        while(count<memberDTOList.size()){
+            if(memberDTO.getFamilyParent().equals(memberDTOList.get(count).getName())){
+                stringArray.add("부모");
+                famliyMemberDTOList.add(memberDTOList.get(count));
+            }else if(memberDTO.getFamilyCouple().equals(memberDTOList.get(count).getName())){
+                stringArray.add("부부");
+                famliyMemberDTOList.add(memberDTOList.get(count));
+            }else if(memberDTO.getFamilySibling().equals(memberDTOList.get(count).getName())){
+                stringArray.add("형제");
+                famliyMemberDTOList.add(memberDTOList.get(count));
+            }else if(memberDTO.getFamilyChild().equals(memberDTOList.get(count).getName())){
+                stringArray.add("자식");
+                famliyMemberDTOList.add(memberDTOList.get(count));
+            }else if(memberDTO.getFamilyEtc().equals(memberDTOList.get(count).getName())){
+                stringArray.add("기타");
+                famliyMemberDTOList.add(memberDTOList.get(count));
+            }
+            count++;
+        }
+
 
         FragmentTransaction fragmentTransaction =fragmentManager.beginTransaction();
-        FragMember fragMember = FragMember.newInstance(memberDTO);
-        FragAttInfo fragAttInfo = FragAttInfo.newInstance(intentPnum);
 
-        fragmentTransaction.add(R.id.frag_containerA, fragMember, null);
-        fragmentTransaction.add(R.id.frag_containerB, fragAttInfo, null);
+        if(memberDTO!=null) {
+            FragMember fragMember = FragMember.newInstance(memberDTO);
+            fragmentTransaction.add(R.id.frag_containerA, fragMember, null);
+        }
+        if(intentPnum!=null) {
+            FragAttInfo fragAttInfo = FragAttInfo.newInstance(intentPnum);
+            fragmentTransaction.add(R.id.frag_containerB, fragAttInfo, null);
+        }
+        if(memberDTOList!=null) {
+            TextView textView = findViewById(R.id.memberCard_text);
+            textView.setVisibility(View.VISIBLE);
+            FragFamily fragFamily = FragFamily.newInstance(famliyMemberDTOList, stringArray);
+            fragmentTransaction.add(R.id.frag_containerC, fragFamily, null);
+        }
+
         fragmentTransaction.commit();
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        if(R.id.menu_btnHome ==item.getItemId()){
+            Intent intentHome = new Intent(this, MainActivity.class);
+            intentHome.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            intentHome.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(intentHome);
+            finish();
+            return true;
+        }else {
+            return super.onOptionsItemSelected(item);
+        }
+
+    }
+
 }
