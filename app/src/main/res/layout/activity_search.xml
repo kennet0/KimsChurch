@@ -11,11 +11,72 @@
         android:layout_marginBottom="20dp">
     </TextView>
 
+
+    <LinearLayout
+        android:weightSum="100"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp">
+
+        <TextView
+            android:id="@+id/txtSort_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_weight="18"
+            android:gravity="right"
+            android:text="이름"/>
+        <TextView
+            android:id="@+id/txtSort_srbName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_weight="13"
+            android:gravity="right"
+            android:text="사랑방"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:id="@+id/txtSort_position"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_weight="13"
+            android:gravity="center"
+            android:text="직분"/>
+        <TextView
+            android:id="@+id/txtSort_department"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_weight="13"
+            android:gravity="center"
+            android:text="부서"/>
+        <TextView
+            android:id="@+id/txtSort_part"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_weight="13"
+
+            android:text="직책"/>
+        <TextView
+            android:id="@+id/txtSort_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20dp"
+            android:layout_weight="25"
+            android:text="전화번호"/>
+
+    </LinearLayout>
    <ListView
        android:id="@+id/list_search"
        android:layout_width="match_parent"
        android:layout_height="wrap_content">
-
    </ListView>
+
+
+
 
 </LinearLayout>

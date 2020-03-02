@@ -76,6 +76,7 @@
             android:text="교인찾기 \n (가나다순)"
             android:textSize="30dp"
             android:layout_marginLeft="70dp"
+            android:layout_marginRight="20dp"
             android:layout_marginTop="30dp"
             >
 

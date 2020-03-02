@@ -1,13 +1,24 @@
 package com.example.kimschurch.Search;
 
+import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Vibrator;
+import android.telephony.PhoneNumberUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import androidx.core.app.ActivityCompat;
+
 import com.example.kimschurch.R;
 import com.example.kimschurch.Util.ImageProcess;
-import com.example.kimschurch.Util.MemberDTO;
+import com.example.kimschurch.DTO.MemberDTO;
 
 import java.util.List;
 
@@ -48,9 +59,7 @@ public class MemberListAdapter extends BaseAdapter{
         TextView phone = search_list_view.findViewById(R.id.rs_phone);
 
         ImageProcess.LoadCircleImage imageProcess = new ImageProcess.LoadCircleImage(imageView);
-        imageProcess.execute("http://112.186.116.16:6011/upload/" +
-                memberDTOList.get(i).getPnum() + ".png");
-
+        imageProcess.execute(memberDTOList.get(i).getPnum());
 
         name.setText(memberDTOList.get(i).getName());
         srbName.setText(memberDTOList.get(i).getSrbName());

@@ -3,7 +3,6 @@ package com.example.kimschurch.MemberCard;
 
 import android.os.Bundle;
 
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,10 +21,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.example.kimschurch.R;
-import com.example.kimschurch.Util.AttDTO;
-import com.example.kimschurch.Util.AttVisitListAdapter;
-import com.example.kimschurch.Util.Calculator;
-import com.example.kimschurch.Util.ImageProcess;
+import com.example.kimschurch.DTO.AttDTO;
+import com.example.kimschurch.Att.AttVisitListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,7 +67,7 @@ public class FragAttInfo extends Fragment {
                     attDTOList = new ArrayList<>();
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("response");
-//                    Log.e("jsonArray", jsonArray.toString());
+                    Log.e("visitArray", jsonArray.toString());
                     int count = 0;
                     String att_pnum, att_date, att5a, att5b, att5c, att_etc;
                     while (count < jsonArray.length()) {
@@ -94,7 +91,7 @@ public class FragAttInfo extends Fragment {
             }
         });
 
-        MemberCardAttRequest memberCardAttRequest = new MemberCardAttRequest(intentPnum, "2" ,"", responseListener);
+        MemberCardAttRequest memberCardAttRequest = new MemberCardAttRequest(intentPnum, "1", "2" ,"", responseListener);
         RequestQueue queue = Volley.newRequestQueue(getActivity());
         queue.add(memberCardAttRequest);
 
@@ -103,7 +100,7 @@ public class FragAttInfo extends Fragment {
             public void onClick(View v) {
                 staticCount += 2;
                 String count = String.valueOf(staticCount);
-                MemberCardAttRequest memberCardAttRequest = new MemberCardAttRequest(intentPnum, count, "", responseListener);
+                MemberCardAttRequest memberCardAttRequest = new MemberCardAttRequest(intentPnum, "1", count, "", responseListener);
                 RequestQueue queue = Volley.newRequestQueue(getActivity());
                 queue.add(memberCardAttRequest);
             }
@@ -113,7 +110,7 @@ public class FragAttInfo extends Fragment {
             public void onClick(View v) {
                 staticCount -= 2;
                 String count = String.valueOf(staticCount);
-                MemberCardAttRequest memberCardAttRequest = new MemberCardAttRequest(intentPnum, count, "", responseListener);
+                MemberCardAttRequest memberCardAttRequest = new MemberCardAttRequest(intentPnum, "1", count, "", responseListener);
                 RequestQueue queue = Volley.newRequestQueue(getActivity());
                 queue.add(memberCardAttRequest);
             }
@@ -123,7 +120,7 @@ public class FragAttInfo extends Fragment {
             @Override
             public void onClick(View v) {
                 String search = txtSearch.getText().toString();
-                MemberCardAttRequest memberCardAttRequest = new MemberCardAttRequest(intentPnum, "1000", search, responseListener);
+                MemberCardAttRequest memberCardAttRequest = new MemberCardAttRequest(intentPnum, "2","1000", search, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(getActivity());
                 queue.add(memberCardAttRequest);
             }

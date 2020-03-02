@@ -8,14 +8,15 @@ import java.util.Map;
 
 public class SearchRequest extends StringRequest {
 
-    final static private String URL = "http://112.186.116.16:6011/Search.php";
+    final static private String URL = "http://112.186.116.16:6011/KimsChurch/Search.php";
     private Map<String, String>  parameters;
 
-    public SearchRequest(String name,  Response.Listener<String> listener) {
+    public SearchRequest(String name, String sort,  Response.Listener<String> listener) {
 
         super(Method.POST, URL, listener, null);
         parameters = new HashMap<>();
         parameters.put("name", name);
+        parameters.put("sort", sort);
 
     }
 

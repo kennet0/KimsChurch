@@ -1,4 +1,4 @@
-package com.example.kimschurch.Youth;
+package com.example.kimschurch.Att;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -9,9 +9,11 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
     String date;
+    String att_department;
 
-    public ViewPagerAdapter(@NonNull FragmentManager fm, String date) {
+    public ViewPagerAdapter(@NonNull FragmentManager fm, String att_department, String date) {
         super(fm);
+        this.att_department = att_department;
          this.date = date;
 
     }
@@ -21,9 +23,9 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return FragAttInsert.newInstance(date);
+                return AttFragInsert.newInstance(att_department,date);
             case 1:
-                return FragAttCheck.newInstance();
+                return AttFragCheck.newInstance(att_department);
 
             default:
                 return null;

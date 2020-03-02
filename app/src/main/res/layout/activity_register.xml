@@ -43,18 +43,24 @@
                 android:id="@+id/txtName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="65"
+                android:layout_weight="55"
                 >
             </EditText>
             <Button
                 android:id="@+id/btnImage"
                 android:text="Image"
-                android:layout_width="wrap_content"
+                android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="30"
-                >
+                android:layout_weight="20"
+                />
+            <Button
+                android:id="@+id/btnImageRotate"
+                android:text="회전"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="15"
+               />
 
-            </Button>
         </LinearLayout>
 
         <!--직분 라디오-->
@@ -72,10 +78,17 @@
             android:orientation="horizontal"
             android:weightSum="100">
             <RadioButton
+                android:id="@+id/rbPositionNon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="무"
+                android:checked="true"
+                android:visibility="gone"
+                android:onClick="radioCheck" />
+            <RadioButton
                 android:id="@+id/rbLayman"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
                 android:text="성도"
                 android:onClick="radioCheck"
                 android:layout_weight="25"/>
@@ -129,11 +142,18 @@
                     android:orientation="horizontal"
                     android:weightSum="50">
                     <RadioButton
+                        android:id="@+id/rbDepartmentNon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="무"
+                        android:checked="true"
+                        android:visibility="gone"
+                        android:onClick="radioCheck" />
+                    <RadioButton
                         android:id="@+id/rbYouth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="청년"
-                        android:checked="true"
                         android:onClick="radioCheck"
                         android:layout_weight="25"/>
                     <RadioButton
@@ -164,11 +184,18 @@
                     android:orientation="horizontal"
                     android:weightSum="50">
                     <RadioButton
+                        android:id="@+id/rbSexNon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="무"
+                        android:checked="true"
+                        android:visibility="gone"
+                        android:onClick="radioCheck" />
+                    <RadioButton
                         android:id="@+id/rbMale"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="남"
-                        android:checked="true"
                         android:onClick="radioCheck"
                         android:layout_weight="25"/>
                     <RadioButton
@@ -196,6 +223,14 @@
             android:orientation="horizontal"
             android:weightSum="60">
             <RadioButton
+                android:id="@+id/rbPartNon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="무"
+                android:checked="true"
+                android:visibility="gone"
+                android:onClick="radioCheck" />
+            <RadioButton
                 android:id="@+id/rbMinister"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -216,7 +251,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="예원"
-                android:checked="true"
                 android:onClick="radioCheck"
                 android:layout_weight="20"/>
 
@@ -393,9 +427,119 @@
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"/>
-
-
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_parent2"
+                android:hint="부모"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_couple2"
+                android:visibility="invisible"
+                android:hint="부부"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_sibling2"
+                android:hint="형제"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_child2"
+                android:hint="자식"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_etc2"
+                android:hint="기타"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_parent3"
+                android:hint="부모"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_couple3"
+                android:visibility="invisible"
+                android:hint="부부"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_sibling3"
+                android:hint="형제"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_child3"
+                android:hint="자식"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_etc3"
+                android:hint="기타"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100">
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_parent4"
+                android:hint="부모"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_couple4"
+                android:visibility="invisible"
+                android:hint="부부"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_sibling4"
+                android:hint="형제"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_child4"
+                android:hint="자식"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+            <AutoCompleteTextView
+                android:id="@+id/txtFamily_etc4"
+                android:hint="기타"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"/>
+        </LinearLayout>
+
 
         <!--특이사항-->
         <LinearLayout

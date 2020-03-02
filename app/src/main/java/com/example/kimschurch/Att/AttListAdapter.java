@@ -1,4 +1,4 @@
-package com.example.kimschurch.Util;
+package com.example.kimschurch.Att;
 
 import android.content.Context;
 import android.util.Log;
@@ -12,14 +12,12 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.example.kimschurch.R;
-import com.example.kimschurch.Util.AttDTO;
-import com.example.kimschurch.Youth.YouthUpdateRequest;
+import com.example.kimschurch.DTO.AttDTO;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AttListAdapter extends BaseAdapter {
 
@@ -48,7 +46,7 @@ public class AttListAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
-        View youth_list = View.inflate(context, R.layout.list_att, null);
+        View youth_list = View.inflate(context, R.layout.att_list, null);
 
         TextView att_name = youth_list.findViewById(R.id.att_name);
         final CheckBox chb_att1 = youth_list.findViewById(R.id.chb_att1);
@@ -61,13 +59,17 @@ public class AttListAdapter extends BaseAdapter {
 
         if(attDTOList.get(i).getAtt1().equals("1")) { chb_att1.setChecked(false);}
         else{chb_att1.setChecked(true);}
+
         if(attDTOList.get(i).getAtt2().equals("1")) { chb_att2.setChecked(false);}
         else{chb_att2.setChecked(true);}
+
         if(attDTOList.get(i).getAtt3().equals("1")) { chb_att3.setChecked(false);}
         else{chb_att3.setChecked(true);}
-        if(attDTOList.get(i).getAtt4().equals("1")) { chb_att4.setChecked(false);}
-        else{chb_att4.setChecked(true);}
-        if(attDTOList.get(i).getAtt5a().equals("1") && attDTOList.get(i).getAtt5b().equals("1") && attDTOList.get(i).getAtt5c().equals("1")) { chb_att4.setChecked(false);}
+
+        if(attDTOList.get(i).getAtt4().equals("1")){ chb_att4.setChecked(false);}
+        else {chb_att4.setChecked(true);}
+
+        if(attDTOList.get(i).getAtt5a().equals("1") && attDTOList.get(i).getAtt5b().equals("1") && attDTOList.get(i).getAtt5c().equals("1")) { chb_att5.setChecked(false);}
         else{chb_att5.setChecked(true);}
 
         youth_list.setTag(attDTOList.get(i).getName());
@@ -91,18 +93,18 @@ public class AttListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                YouthUpdateRequest youthUpdateRequest;
+                AttUpdateRequest attUpdateRequest;
                 if(chb_att1.isChecked()){
-                    youthUpdateRequest =
-                            new YouthUpdateRequest(
+                    attUpdateRequest =
+                            new AttUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),"2",
                                     "","","",
                                     "", listener);
                     Log.e("checkbox","checked");
                 }else {
-                    youthUpdateRequest =
-                            new YouthUpdateRequest(
+                    attUpdateRequest =
+                            new AttUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),"1",
                                     "","","",
@@ -110,7 +112,7 @@ public class AttListAdapter extends BaseAdapter {
                     Log.e("checkbox","unchecked");
                 }
                 RequestQueue queue = Volley.newRequestQueue(context);
-                queue.add(youthUpdateRequest);
+                queue.add(attUpdateRequest);
             }
         });
 
@@ -119,10 +121,10 @@ public class AttListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                YouthUpdateRequest youthUpdateRequest;
+                AttUpdateRequest attUpdateRequest;
                 if(chb_att2.isChecked()){
-                    youthUpdateRequest =
-                            new YouthUpdateRequest(
+                    attUpdateRequest =
+                            new AttUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),"",
                                     "2","","",
@@ -130,8 +132,8 @@ public class AttListAdapter extends BaseAdapter {
                     Log.e("checkbox","checked");
 
                 }else {
-                    youthUpdateRequest =
-                            new YouthUpdateRequest(
+                    attUpdateRequest =
+                            new AttUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),"",
                                     "1","","",
@@ -139,20 +141,20 @@ public class AttListAdapter extends BaseAdapter {
                     Log.e("checkbox","unchecked");
                 }
                 RequestQueue queue = Volley.newRequestQueue(context);
-                queue.add(youthUpdateRequest);
+                queue.add(attUpdateRequest);
             }
         });
 
 
-        //att3
+  //att3
         chb_att3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                YouthUpdateRequest youthUpdateRequest;
+                AttUpdateRequest attUpdateRequest;
                 if(chb_att3.isChecked()){
-                    youthUpdateRequest =
-                            new YouthUpdateRequest(
+                    attUpdateRequest =
+                            new AttUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),"",
                                     "","2","",
@@ -161,8 +163,8 @@ public class AttListAdapter extends BaseAdapter {
 
 
                 }else {
-                    youthUpdateRequest =
-                            new YouthUpdateRequest(
+                    attUpdateRequest =
+                            new AttUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),"",
                                     "","1","",
@@ -170,7 +172,7 @@ public class AttListAdapter extends BaseAdapter {
                     Log.e("checkbox","unchecked");
                 }
                 RequestQueue queue = Volley.newRequestQueue(context);
-                queue.add(youthUpdateRequest);
+                queue.add(attUpdateRequest);
             }
         });
 
@@ -179,10 +181,10 @@ public class AttListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                YouthUpdateRequest youthUpdateRequest;
+                AttUpdateRequest attUpdateRequest;
                 if(chb_att4.isChecked()){
-                    youthUpdateRequest =
-                            new YouthUpdateRequest(
+                    attUpdateRequest =
+                            new AttUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),"",
                                     "","","2",
@@ -191,8 +193,8 @@ public class AttListAdapter extends BaseAdapter {
 
 
                 }else {
-                    youthUpdateRequest =
-                            new YouthUpdateRequest(
+                    attUpdateRequest =
+                            new AttUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),"",
                                     "","","1",
@@ -200,39 +202,9 @@ public class AttListAdapter extends BaseAdapter {
                     Log.e("checkbox","unchecked");
                 }
                 RequestQueue queue = Volley.newRequestQueue(context);
-                queue.add(youthUpdateRequest);
+                queue.add(attUpdateRequest);
             }
         });
-
-        //att5
-//        chb_att5.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                YouthUpdateRequest youthUpdateRequest;
-//                if(chb_att5.isChecked()){
-//                    youthUpdateRequest =
-//                            new YouthUpdateRequest(
-//                                    attDTOList.get(i).getPnum(),
-//                                    "", attDTOList.get(i).getAtt_date(),"",
-//                                    "","","",
-//                                    "2", listener);
-//                    Log.e("checkbox","checked");
-//
-//
-//                }else {
-//                    youthUpdateRequest =
-//                            new YouthUpdateRequest(
-//                                    attDTOList.get(i).getPnum(),
-//                                    "", attDTOList.get(i).getAtt_date(),"",
-//                                    "","","",
-//                                    "1",listener);
-//                    Log.e("checkbox","unchecked");
-//                }
-//                RequestQueue queue = Volley.newRequestQueue(context);
-//                queue.add(youthUpdateRequest);
-//            }
-//        });
 
 
         return youth_list;

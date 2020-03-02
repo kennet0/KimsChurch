@@ -73,7 +73,7 @@
             android:text="심방"></TextView>
     </LinearLayout>
     <ListView
-        android:id="@+id/youth_list_att"
+        android:id="@+id/att_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></ListView>
 

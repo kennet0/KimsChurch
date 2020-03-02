@@ -10,12 +10,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.android.volley.Response;
+import com.example.kimschurch.Att.SeniorActivity;
 import com.example.kimschurch.Register.RegisterActivity;
 import com.example.kimschurch.Search.SearchActivity;
 import com.example.kimschurch.R;
-import com.example.kimschurch.Search.SearchRequest;
-import com.example.kimschurch.Youth.YouthActivity;
+import com.example.kimschurch.Att.YouthActivity;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -42,13 +41,21 @@ public class MainActivity extends AppCompatActivity {
         btnInsertMember = findViewById(R.id.btnInsertMember);
         txtSearch = findViewById(R.id.txtSearch);
 
+        //청년버튼
         btnYouth.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
               Intent intent = new Intent(MainActivity.this, YouthActivity.class);
               startActivity(intent);
+            }
+        });
 
+        //장년버튼
+        btnSenior.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, SeniorActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -58,21 +65,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 searchName = "";
                 String body = "name=" + searchName;
-                String url = "http://112.186.116.16:6011/Search.php";
+                String url = "http://112.186.116.16:6011/KimsChurch/Search.php";
                 new BackgroundTask(url,RegisterActivity.class, body).execute();
             }
         });
 
         //검색버튼
-
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 searchName = txtSearch.getText().toString();
-                String body = "name=" + searchName;
-                String url = "http://112.186.116.16:6011/Search.php";
-                new BackgroundTask(url,SearchActivity.class, body).execute();
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                intent.putExtra("searchName",searchName);
+                startActivity(intent);
 
             }
         });
@@ -81,10 +86,10 @@ public class MainActivity extends AppCompatActivity {
         btnFindMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchName = "";
-                String body = "name=" + searchName;
-                String url = "http://112.186.116.16:6011/Search.php";
-                new BackgroundTask(url,SearchActivity.class, body).execute();
+
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+
             }
         });
     }
@@ -151,7 +156,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(MainActivity.this, context);
             intent.putExtra("tag",1);
             intent.putExtra("result", result);
-            Log.e("result", result);
+//            Log.e("result", result);
             startActivity(intent);
 
         }

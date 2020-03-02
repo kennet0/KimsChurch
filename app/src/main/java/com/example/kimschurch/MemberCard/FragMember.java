@@ -1,14 +1,23 @@
 package com.example.kimschurch.MemberCard;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
+import android.os.Vibrator;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,8 +32,9 @@ import com.android.volley.toolbox.Volley;
 import com.example.kimschurch.R;
 import com.example.kimschurch.Register.RegisterActivity;
 import com.example.kimschurch.Util.Calculator;
+import com.example.kimschurch.Util.Etc;
 import com.example.kimschurch.Util.ImageProcess;
-import com.example.kimschurch.Util.MemberDTO;
+import com.example.kimschurch.DTO.MemberDTO;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -79,18 +89,23 @@ public class FragMember extends Fragment {
         final String work = memberDTO.getWork();
         final String birthday = memberDTO.getBirthday();
         final String birthdayCal = memberDTO.getBirthdayCal();
-        final String familyFather = memberDTO.getFamilyParent();
-        final String familyMother = memberDTO.getFamilyCouple();
-        final String familySibling = memberDTO.getFamilySibling();
-        final String familyChild = memberDTO.getFamilyChild();
-        final String familyEtc =memberDTO.getFamilyEtc();
         final String etc = memberDTO.getEtc();
         final String age = Calculator.calAge(memberDTO.getBirthday());
+//        Log.e("memberDTO",memberDTO.getFamilyChild2());
 
+
+
+        //전화
+        txtphone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Etc.phoneCall(view.getContext(),memberDTO);
+
+            }
+        });
 
         ImageProcess.LoadImage imageProcess = new ImageProcess.LoadImage(imageView);
-        imageProcess.execute("http://112.186.116.16:6011/upload/" +
-                pnum + ".png");
+        imageProcess.execute(pnum);
 
         txtname.setText(name);
         txtage.setText(age);

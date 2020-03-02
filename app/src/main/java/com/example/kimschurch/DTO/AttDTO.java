@@ -1,4 +1,4 @@
-package com.example.kimschurch.Util;
+package com.example.kimschurch.DTO;
 
 import java.io.Serializable;
 
@@ -91,9 +91,7 @@ public class AttDTO implements Serializable {
         this.att3 = att3;
     }
 
-    public String getAtt4() {
-        return att4;
-    }
+    public String getAtt4() { return att4; }
 
     public void setAtt4(String att4) {
         this.att4 = att4;

@@ -1,14 +1,14 @@
-package com.example.kimschurch.Youth;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+package com.example.kimschurch.Att;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.kimschurch.Main.MainActivity;
 import com.example.kimschurch.R;
@@ -19,7 +19,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class YouthActivity extends AppCompatActivity {
+public class SeniorActivity extends AppCompatActivity {
 
     private FragmentPagerAdapter fragmentPagerAdapter;
     private String date;
@@ -40,7 +40,7 @@ public class YouthActivity extends AppCompatActivity {
         ViewPager viewPager = findViewById(R.id.youth_viewPager);
         TabLayout tabLayout = findViewById(R.id.youth_tabLayout);
 
-        fragmentPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), date);
+        fragmentPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(),"장년", date);
         viewPager.setAdapter(fragmentPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
     }

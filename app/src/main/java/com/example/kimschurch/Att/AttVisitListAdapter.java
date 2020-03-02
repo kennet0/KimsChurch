@@ -1,7 +1,6 @@
-package com.example.kimschurch.Util;
+package com.example.kimschurch.Att;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,16 +11,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
-import com.example.kimschurch.Main.MainActivity;
 import com.example.kimschurch.R;
-import com.example.kimschurch.Register.RegisterActivity;
-import com.example.kimschurch.Youth.YouthUpdateRequest;
-import com.example.kimschurch.Youth.YouthVisitUpdateRequest;
+import com.example.kimschurch.DTO.AttDTO;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,7 +49,7 @@ public class AttVisitListAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int i, View view, ViewGroup viewGroup) {
-        View youth_list = View.inflate(context, R.layout.list_att_visit, null);
+        View youth_list = View.inflate(context, R.layout.att_list_visit, null);
 
         TextView txt_att_date = youth_list.findViewById(R.id.txt_att_date);
         final CheckBox chb_att5a = youth_list.findViewById(R.id.chb_att5a);
@@ -106,25 +100,25 @@ public class AttVisitListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                YouthVisitUpdateRequest youthVisitUpdateRequest;
+                AttVisitUpdateRequest attVisitUpdateRequest;
 
                 if(chb_att5a.isChecked()){
-                    youthVisitUpdateRequest =
-                            new YouthVisitUpdateRequest(
+                    attVisitUpdateRequest =
+                            new AttVisitUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),
                                     "2","","","",listener);
                     Log.e("checkbox","checked");
                 }else {
-                    youthVisitUpdateRequest =
-                            new YouthVisitUpdateRequest(
+                    attVisitUpdateRequest =
+                            new AttVisitUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),
                                     "1","","","",listener);
                     Log.e("checkbox","unchecked");
                 }
                 RequestQueue queue = Volley.newRequestQueue(context);
-                queue.add(youthVisitUpdateRequest);
+                queue.add(attVisitUpdateRequest);
             }
         });
 
@@ -133,24 +127,24 @@ public class AttVisitListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                YouthVisitUpdateRequest youthVisitUpdateRequest;
+                AttVisitUpdateRequest attVisitUpdateRequest;
                 if(chb_att5b.isChecked()){
-                    youthVisitUpdateRequest =
-                            new YouthVisitUpdateRequest(
+                    attVisitUpdateRequest =
+                            new AttVisitUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),
                                     "","2","","",listener);
                     Log.e("checkbox","checked");
                 }else {
-                    youthVisitUpdateRequest =
-                            new YouthVisitUpdateRequest(
+                    attVisitUpdateRequest =
+                            new AttVisitUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),
                                     "","1","","",listener);
                     Log.e("checkbox","unchecked");
                 }
                 RequestQueue queue = Volley.newRequestQueue(context);
-                queue.add(youthVisitUpdateRequest);
+                queue.add(attVisitUpdateRequest);
             }
         });
 
@@ -159,38 +153,38 @@ public class AttVisitListAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
 
-                YouthVisitUpdateRequest youthVisitUpdateRequest;
+                AttVisitUpdateRequest attVisitUpdateRequest;
                 if(chb_att5c.isChecked()){
-                    youthVisitUpdateRequest =
-                            new YouthVisitUpdateRequest(
+                    attVisitUpdateRequest =
+                            new AttVisitUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),
                                     "","","2","",listener);
                     Log.e("checkbox","checked");
 
                 }else {
-                    youthVisitUpdateRequest =
-                            new YouthVisitUpdateRequest(
+                    attVisitUpdateRequest =
+                            new AttVisitUpdateRequest(
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),
                                     "","","1","",listener);
                     Log.e("checkbox","unchecked");
                 }
                 RequestQueue queue = Volley.newRequestQueue(context);
-                queue.add(youthVisitUpdateRequest);
+                queue.add(attVisitUpdateRequest);
             }
         });
 
         btn_att_etc_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                YouthVisitUpdateRequest youthVisitUpdateRequest =
-                        new YouthVisitUpdateRequest(
+                AttVisitUpdateRequest attVisitUpdateRequest =
+                        new AttVisitUpdateRequest(
                                 attDTOList.get(i).getPnum(),
                                 "", attDTOList.get(i).getAtt_date(),
                                 "","","",txt_att_etc.getText().toString(),listener);
                 RequestQueue queue = Volley.newRequestQueue(context);
-                queue.add(youthVisitUpdateRequest);
+                queue.add(attVisitUpdateRequest);
             }
         });
 

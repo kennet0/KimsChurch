@@ -1,4 +1,4 @@
-package com.example.kimschurch.Util;
+package com.example.kimschurch.MemberCard;
 
 import android.content.Context;
 import android.os.Build;
@@ -11,7 +11,11 @@ import android.widget.TextView;
 
 import androidx.annotation.RequiresApi;
 
+import com.example.kimschurch.DTO.MemberDTO;
 import com.example.kimschurch.R;
+import com.example.kimschurch.Util.Calculator;
+import com.example.kimschurch.Util.Etc;
+import com.example.kimschurch.Util.ImageProcess;
 
 import java.util.ArrayList;
 
@@ -85,10 +89,15 @@ public class FamilyListAdapter extends BaseAdapter {
         final String etc = memberDTOList.get(i).getEtc();
         final String age = Calculator.calAge(memberDTOList.get(i).getBirthday());
 
+        txtphone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                Etc.phoneCall(context,memberDTOList.get(i));
+            }
+        });
 
         ImageProcess.LoadImage imageProcess = new ImageProcess.LoadImage(imageView);
-        imageProcess.execute("http://112.186.116.16:6011/upload/" +
-                pnum + ".png");
+        imageProcess.execute(pnum);
 
 
         txtFamily.setVisibility(View.VISIBLE);

@@ -1,4 +1,4 @@
-package com.example.kimschurch.Youth;
+package com.example.kimschurch.Att;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,8 +18,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.example.kimschurch.R;
-import com.example.kimschurch.Util.AttDTO;
-import com.example.kimschurch.Util.AttListAdapter;
+import com.example.kimschurch.DTO.AttDTO;
 import com.example.kimschurch.Util.Calculator;
 
 import org.json.JSONArray;
@@ -28,7 +27,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class FragAttInsert extends Fragment {
+public class AttFragInsert extends Fragment {
 
     private View view;
     private ListView listView;
@@ -36,25 +35,28 @@ public class FragAttInsert extends Fragment {
     private AttListAdapter attListAdapter;
     private String weekCheck ="";
 
-    public static FragAttInsert newInstance(String date) {
-        FragAttInsert fragAttInsert = new FragAttInsert();
-        Bundle args = new Bundle();
-        args.putString("date",date);
-        fragAttInsert.setArguments(args);
 
-        return fragAttInsert;
+    public static AttFragInsert newInstance(String att_department, String date) {
+        AttFragInsert attFragInsert = new AttFragInsert();
+        Bundle args = new Bundle();
+        args.putString("att_department",att_department);
+        args.putString("date",date);
+        attFragInsert.setArguments(args);
+
+        return attFragInsert;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.youth_att_frag_insert, container, false);
+        view = inflater.inflate(R.layout.att_frag_insert, container, false);
 
         final TextView att_date = view.findViewById(R.id.txt_att_date); //주별 날짜
         Button btn_att_reset = view.findViewById(R.id.btn_att_reset); //리셋버튼
-        listView = view.findViewById(R.id.youth_list_att);
+        listView = view.findViewById(R.id.att_list);
 
         if(getArguments() != null){
+            final String att_department = getArguments().getString("att_department");
             final String date = getArguments().getString("date");
             weekCheck = Calculator.calWeek(date);
 
@@ -62,10 +64,10 @@ public class FragAttInsert extends Fragment {
                 @Override
                 public void onResponse(String response) {
                     try {
+
                         attDTOList = new ArrayList<>();
                         JSONObject jsonResponse = new JSONObject(response);
                         JSONArray jsonArray = jsonResponse.getJSONArray("response");
-                        Log.e("attInsertJsonArray", jsonArray.toString());
                         int count = 0;
                         String name, pnum, date, att1, att2, att3, att4, att5, att5a, att5b, att5c;
                         while (count < jsonArray.length()){
@@ -84,6 +86,7 @@ public class FragAttInsert extends Fragment {
 
                             attDTOList.add(new AttDTO(1,pnum, name, date, att1, att2, att3, att4, att5, att5a,att5b,att5c,null));
                             count++;
+                            Log.e("attInsertJsonArray", object.toString());
                         }
                         attListAdapter = new AttListAdapter(getContext(), attDTOList);
                         listView.setAdapter(attListAdapter);
@@ -96,19 +99,27 @@ public class FragAttInsert extends Fragment {
 
             };
 
-            YouthAttRequest youthAttRequest = new YouthAttRequest(weekCheck,responseListener);
+            AttRequest attRequest = new AttRequest(att_department, weekCheck,responseListener);
             RequestQueue queue = Volley.newRequestQueue(getActivity());
-            queue.add(youthAttRequest);
+            queue.add(attRequest);
+
+
 
             btn_att_reset.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    YouthResetRequest youthResetRequest = new YouthResetRequest(weekCheck,null);
+                    AttResetRequest attResetRequest = new AttResetRequest(att_department ,weekCheck,null);
                     RequestQueue queue = Volley.newRequestQueue(getActivity());
-                    queue.add(youthResetRequest);
-                    Intent intent = new Intent(getActivity(),YouthActivity.class);
-                    intent.putExtra("date",date);
-                    startActivity(intent);
+                    queue.add(attResetRequest);
+                    if(att_department.equals("청년")) {
+                        Intent intent = new Intent(getActivity(), YouthActivity.class);
+                        intent.putExtra("date", date);
+                        startActivity(intent);
+                    }else{
+                        Intent intent = new Intent(getActivity(), SeniorActivity.class);
+                        intent.putExtra("date", date);
+                        startActivity(intent);
+                    }
                 }
             });
         }
