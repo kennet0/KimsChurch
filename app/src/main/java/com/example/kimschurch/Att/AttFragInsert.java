@@ -19,6 +19,7 @@ import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
 import com.example.kimschurch.R;
 import com.example.kimschurch.DTO.AttDTO;
+
 import com.example.kimschurch.Util.Calculator;
 
 import org.json.JSONArray;
@@ -86,7 +87,7 @@ public class AttFragInsert extends Fragment {
 
                             attDTOList.add(new AttDTO(1,pnum, name, date, att1, att2, att3, att4, att5, att5a,att5b,att5c,null));
                             count++;
-                            Log.e("attInsertJsonArray", object.toString());
+//                            Log.e("attInsertJsonArray", object.toString());
                         }
                         attListAdapter = new AttListAdapter(getContext(), attDTOList);
                         listView.setAdapter(attListAdapter);

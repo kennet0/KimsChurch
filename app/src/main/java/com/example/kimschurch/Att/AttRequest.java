@@ -18,7 +18,7 @@ public class AttRequest extends StringRequest {
         super(Method.POST, URL, listener, null);
         parameters = new HashMap<>();
         parameters.put("att_department",att_department);
-        Log.e("att_dpartment",att_department);
+//        Log.e("att_dpartment",att_department);
         parameters.put("att_date", att_date);
     }
 

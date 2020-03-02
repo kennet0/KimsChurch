@@ -157,7 +157,7 @@ public class FragMember extends Fragment {
                     public void onResponse(String response) {
                         try {
                             JSONObject jsonObject = new JSONObject(response);
-                            Log.e("btnconfirm",jsonObject.toString());
+//                            Log.e("btnconfirm",jsonObject.toString());
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

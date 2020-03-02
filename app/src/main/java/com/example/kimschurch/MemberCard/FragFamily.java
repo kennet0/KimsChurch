@@ -70,7 +70,7 @@ public class FragFamily extends Fragment {
             View listItem = listAdapter.getView(i, null, listView);
             listItem.measure(desiredWidth, View.MeasureSpec.UNSPECIFIED);
             totalHeight += (listItem.getMeasuredHeight()-1000);
-            Log.e("totalHeight", String.valueOf(totalHeight));
+//            Log.e("totalHeight", String.valueOf(totalHeight));
         }
 
         ViewGroup.LayoutParams params = listView.getLayoutParams();

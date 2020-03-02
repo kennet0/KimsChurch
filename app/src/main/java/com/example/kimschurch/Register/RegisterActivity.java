@@ -107,7 +107,7 @@ public class RegisterActivity extends AppCompatActivity {
         txtFamily_child4 = findViewById(R.id.txtFamily_child4);
         txtFamily_etc4 = findViewById(R.id.txtFamily_etc4);
 
-        getFamilyList(getIntent());
+        getFamilyList();
         updateMember(getIntent());
 
         txtFamily_parent.setAdapter(new ArrayAdapter<String>(this,R.layout.support_simple_spinner_dropdown_item, familyList));
@@ -190,9 +190,12 @@ public class RegisterActivity extends AppCompatActivity {
                 String familyChild4 = txtFamily_child4.getText().toString();
                 String familyEtc4 = txtFamily_etc4.getText().toString();
                 String etc = txtEtc.getText().toString();
-                bmImage = ImageProcess.bitmapSize(bmImage,100);
-                String image = ImageProcess.bitmapToString(bmImage);
+                String image = "";
 
+                if(bmImage!=null) {
+                    bmImage = ImageProcess.bitmapSize(bmImage, 100);
+                    image = ImageProcess.bitmapToString(bmImage);
+                }
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -267,28 +270,35 @@ public class RegisterActivity extends AppCompatActivity {
         }
 
     }
-    public void getFamilyList(Intent intent) {
-        if ((intent.getIntExtra("tag", 0) == 1)) {
-            try {
-                JSONObject jsonObject = new JSONObject(intent.getStringExtra("result"));
-                JSONArray jsonArray = jsonObject.getJSONArray("response");
-                familyList = new ArrayList<String>();
-                int count = 0;
-                String name ;
-                while (count < jsonArray.length()) {
-                    JSONObject object = jsonArray.getJSONObject(count);
-                    name = object.getString("name");
-                    familyList.add(name);
-                    count++;
+    public void getFamilyList() {
+        familyList = new ArrayList<>();
+
+        final Response.Listener<String> listener = new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
+                    JSONArray jsonArray = jsonObject.getJSONArray("response");
+                Log.e("jsonArray",jsonArray.toString());
+                    int count = 0;
+                    String name;
+                    while (count < jsonArray.length()) {
+                        JSONObject object = jsonArray.getJSONObject(count);
+                        name = object.getString("name");
+                        familyList.add(name);
+                        count++;
+                    }
+                } catch (JSONException e) {
+                    e.getStackTrace();
                 }
-            }catch (JSONException e){
-                e.getStackTrace();
             }
+        };
 
-        }
+        SearchRequest searchRequest = new SearchRequest("","","name",listener);
+        RequestQueue queue = Volley.newRequestQueue(this);
+        queue.add(searchRequest);
     }
-
-
+    
     //수정할 때
     public void updateMember(Intent intent){
         if((intent.getIntExtra("tag",0)==2)){

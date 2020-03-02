@@ -63,10 +63,11 @@ public class MainActivity extends AppCompatActivity {
         btnInsertMember.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                searchName = "";
-                String body = "name=" + searchName;
-                String url = "http://112.186.116.16:6011/KimsChurch/Search.php";
-                new BackgroundTask(url,RegisterActivity.class, body).execute();
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(intent);
+//                String body = "sort=name";
+//                String url = "http://112.186.116.16:6011/KimsChurch/Search.php";
+//                new BackgroundTask(url,RegisterActivity.class, body).execute();
             }
         });
 

@@ -1,6 +1,7 @@
 package com.example.kimschurch.Att;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +12,13 @@ import android.widget.TextView;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.toolbox.Volley;
+import com.example.kimschurch.DTO.MemberDTO;
+import com.example.kimschurch.MemberCard.MemberCardActivity;
 import com.example.kimschurch.R;
 import com.example.kimschurch.DTO.AttDTO;
+import com.example.kimschurch.Search.SearchRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -75,18 +80,91 @@ public class AttListAdapter extends BaseAdapter {
         youth_list.setTag(attDTOList.get(i).getName());
 
         //DB 연동
-        final Response.Listener<String> listener = new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
 
-                try {
-                    JSONObject jsonResponse = new JSONObject(response);
-                    Log.e("response",jsonResponse.toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+
+        att_name.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Response.Listener<String> listener = new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        MemberDTO memberDTO = null;
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            JSONArray jsonArray = jsonObject.getJSONArray("response");
+//                            Log.e("jsonObject",jsonObject.toString());
+
+                            int count = 0;
+                            String pnum, name, phone, sex, position, department, part, srbName, srbLeader, work, birthday, birthdayCal,
+                                    familyParent, familyCouple, familySibling, familyChild, familyEtc,
+                                    familyParent2, familyCouple2, familySibling2, familyChild2, familyEtc2,
+                                    familyParent3, familyCouple3, familySibling3, familyChild3, familyEtc3,
+                                    familyParent4, familyCouple4, familySibling4, familyChild4, familyEtc4,
+                                    etc;
+                            while (count < jsonArray.length()) {
+                                JSONObject object = jsonArray.getJSONObject(count);
+                                pnum = object.getString("pnum");
+                                name = object.getString("name");
+                                phone = object.getString("phone");
+                                sex = object.getString("sex");
+                                position = object.getString("position");
+                                department = object.getString("department");
+                                part = object.getString("part");
+                                srbName = object.getString("srbName");
+                                srbLeader = object.getString("srbLeader");
+                                work = object.getString("work");
+                                birthday = object.getString("birthday");
+                                birthdayCal = object.getString("birthdayCal");
+                                familyParent = object.getString("familyParent");
+                                familyCouple = object.getString("familyCouple");
+                                familySibling = object.getString("familySibling");
+                                familyChild = object.getString("familyChild");
+                                familyEtc = object.getString("familyEtc");
+                                familyParent2 = object.getString("familyParent2");
+                                familyCouple2 = object.getString("familyCouple2");
+                                familySibling2 = object.getString("familySibling2");
+                                familyChild2 = object.getString("familyChild2");
+                                familyEtc2 = object.getString("familyEtc2");
+                                familyParent3 = object.getString("familyParent3");
+                                familyCouple3 = object.getString("familyCouple3");
+                                familySibling3 = object.getString("familySibling3");
+                                familyChild3 = object.getString("familyChild3");
+                                familyEtc3 = object.getString("familyEtc3");
+                                familyParent4 = object.getString("familyParent4");
+                                familyCouple4 = object.getString("familyCouple4");
+                                familySibling4 = object.getString("familySibling4");
+                                familyChild4 = object.getString("familyChild4");
+                                familyEtc4 = object.getString("familyEtc4");
+                                etc = object.getString("etc");
+
+                                memberDTO = new MemberDTO(pnum, name, phone, sex, position, department, part, srbName, srbLeader, work, birthday, birthdayCal,
+                                        familyParent, familyCouple, familySibling, familyChild, familyEtc,
+                                        familyParent2, familyCouple2, familySibling2, familyChild2, familyEtc2,
+                                        familyParent3, familyCouple3, familySibling3, familyChild3, familyEtc3,
+                                        familyParent4, familyCouple4, familySibling4, familyChild4, familyEtc4,
+                                        etc);
+                                count++;
+//                              Log.e("jsonObject", object.toString());
+                            }
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Intent intent = new Intent(context,MemberCardActivity.class);
+                        intent.putExtra("memberDTO",memberDTO);
+                        context.startActivity(intent);
+
+                    }
+                };
+
+                SearchRequest searchRequest = new SearchRequest(attDTOList.get(i).getPnum(),"","",listener);
+                RequestQueue queue = Volley.newRequestQueue(context);
+                queue.add(searchRequest);
+
+
             }
-        };
+        });
+
 
         //att1
         chb_att1.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +178,7 @@ public class AttListAdapter extends BaseAdapter {
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),"2",
                                     "","","",
-                                    "", listener);
+                                    "", null);
                     Log.e("checkbox","checked");
                 }else {
                     attUpdateRequest =
@@ -108,7 +186,7 @@ public class AttListAdapter extends BaseAdapter {
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),"1",
                                     "","","",
-                                    "",listener);
+                                    "",null);
                     Log.e("checkbox","unchecked");
                 }
                 RequestQueue queue = Volley.newRequestQueue(context);
@@ -128,7 +206,7 @@ public class AttListAdapter extends BaseAdapter {
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),"",
                                     "2","","",
-                                    "", listener);
+                                    "", null);
                     Log.e("checkbox","checked");
 
                 }else {
@@ -137,7 +215,7 @@ public class AttListAdapter extends BaseAdapter {
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),"",
                                     "1","","",
-                                    "",listener);
+                                    "",null);
                     Log.e("checkbox","unchecked");
                 }
                 RequestQueue queue = Volley.newRequestQueue(context);
@@ -158,7 +236,7 @@ public class AttListAdapter extends BaseAdapter {
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),"",
                                     "","2","",
-                                    "", listener);
+                                    "", null);
                     Log.e("checkbox","checked");
 
 
@@ -168,7 +246,7 @@ public class AttListAdapter extends BaseAdapter {
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),"",
                                     "","1","",
-                                    "",listener);
+                                    "",null);
                     Log.e("checkbox","unchecked");
                 }
                 RequestQueue queue = Volley.newRequestQueue(context);
@@ -188,7 +266,7 @@ public class AttListAdapter extends BaseAdapter {
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),"",
                                     "","","2",
-                                    "", listener);
+                                    "", null);
                     Log.e("checkbox","checked");
 
 
@@ -198,7 +276,7 @@ public class AttListAdapter extends BaseAdapter {
                                     attDTOList.get(i).getPnum(),
                                     "", attDTOList.get(i).getAtt_date(),"",
                                     "","","1",
-                                    "",listener);
+                                    "",null);
                     Log.e("checkbox","unchecked");
                 }
                 RequestQueue queue = Volley.newRequestQueue(context);

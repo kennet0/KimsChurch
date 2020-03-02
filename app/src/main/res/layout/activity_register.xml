@@ -417,7 +417,7 @@
                 android:layout_weight="20"/>
             <AutoCompleteTextView
                 android:id="@+id/txtFamily_child"
-                android:hint="자식"
+                android:hint="자녀"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"/>
@@ -454,7 +454,7 @@
                 android:layout_weight="20"/>
             <AutoCompleteTextView
                 android:id="@+id/txtFamily_child2"
-                android:hint="자식"
+                android:hint="자녀"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"/>
@@ -491,7 +491,7 @@
                 android:layout_weight="20"/>
             <AutoCompleteTextView
                 android:id="@+id/txtFamily_child3"
-                android:hint="자식"
+                android:hint="자녀"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"/>
@@ -528,7 +528,7 @@
                 android:layout_weight="20"/>
             <AutoCompleteTextView
                 android:id="@+id/txtFamily_child4"
-                android:hint="자식"
+                android:hint="자녀"
                 android:layout_width="70dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"/>

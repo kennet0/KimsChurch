@@ -61,7 +61,7 @@ public class SearchActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("response");
-                    Log.e("jsonObject",jsonObject.toString());
+//                    Log.e("jsonObject",jsonObject.toString());
                     memberDTOList.clear();
                     int count = 0;
                     String pnum, name, phone, sex, position, department, part, srbName, srbLeader, work, birthday, birthdayCal,
@@ -135,14 +135,14 @@ public class SearchActivity extends AppCompatActivity {
         if(getIntent().hasExtra("searchName")) {
             searchName = getIntent().getStringExtra("searchName");
         }
-        SearchRequest searchRequest = new SearchRequest(searchName,"name",listener);
+        SearchRequest searchRequest = new SearchRequest("",searchName,"name",listener);
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(searchRequest);
 
         txtSort_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchRequest searchRequest = new SearchRequest(searchName,"name",listener);
+                SearchRequest searchRequest = new SearchRequest("",searchName,"name",listener);
                 RequestQueue queue = Volley.newRequestQueue(SearchActivity.this);
                 queue.add(searchRequest);
             }
@@ -151,7 +151,7 @@ public class SearchActivity extends AppCompatActivity {
         txtSort_position.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchRequest searchRequest = new SearchRequest(searchName,"position",listener);
+                SearchRequest searchRequest = new SearchRequest("",searchName,"position",listener);
                 RequestQueue queue = Volley.newRequestQueue(SearchActivity.this);
                 queue.add(searchRequest);
             }
@@ -160,7 +160,7 @@ public class SearchActivity extends AppCompatActivity {
         txtSort_srbName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchRequest searchRequest = new SearchRequest(searchName,"srbName",listener);
+                SearchRequest searchRequest = new SearchRequest("",searchName,"srbName",listener);
                 RequestQueue queue = Volley.newRequestQueue(SearchActivity.this);
                 queue.add(searchRequest);
             }
@@ -169,7 +169,7 @@ public class SearchActivity extends AppCompatActivity {
         txtSort_department.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchRequest searchRequest = new SearchRequest(searchName,"department",listener);
+                SearchRequest searchRequest = new SearchRequest("",searchName,"department",listener);
                 RequestQueue queue = Volley.newRequestQueue(SearchActivity.this);
                 queue.add(searchRequest);
             }
@@ -178,7 +178,7 @@ public class SearchActivity extends AppCompatActivity {
         txtSort_part.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchRequest searchRequest = new SearchRequest(searchName,"part",listener);
+                SearchRequest searchRequest = new SearchRequest("",searchName,"part",listener);
                 RequestQueue queue = Volley.newRequestQueue(SearchActivity.this);
                 queue.add(searchRequest);
             }

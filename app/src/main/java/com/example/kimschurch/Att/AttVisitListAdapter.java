@@ -81,7 +81,7 @@ public class AttVisitListAdapter extends BaseAdapter {
 
                 try{
                     JSONObject jsonResponse = new JSONObject(response);
-                    Log.e("jsonresponse",jsonResponse.toString());
+//                    Log.e("jsonresponse",jsonResponse.toString());
                     boolean success = jsonResponse.getBoolean("success");
 
                     if(success){
