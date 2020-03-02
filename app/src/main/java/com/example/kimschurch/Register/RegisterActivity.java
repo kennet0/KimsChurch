@@ -279,7 +279,7 @@ public class RegisterActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     JSONArray jsonArray = jsonObject.getJSONArray("response");
-                Log.e("jsonArray",jsonArray.toString());
+//                Log.e("jsonArray",jsonArray.toString());
                     int count = 0;
                     String name;
                     while (count < jsonArray.length()) {
@@ -298,7 +298,7 @@ public class RegisterActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(this);
         queue.add(searchRequest);
     }
-    
+
     //수정할 때
     public void updateMember(Intent intent){
         if((intent.getIntExtra("tag",0)==2)){
