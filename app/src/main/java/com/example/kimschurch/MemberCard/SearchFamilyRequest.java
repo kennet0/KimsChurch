@@ -2,13 +2,14 @@ package com.example.kimschurch.MemberCard;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
+import com.example.kimschurch.Util.Etc;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class SearchFamilyRequest extends StringRequest {
 
-    final static private String URL = "http://112.186.116.16:6011/KimsChurch/SearchFamily.php";
+    final static private String URL = Etc.URL+"/KimsChurch/SearchFamily.php";
     private Map<String, String>  parameters;
 
     public SearchFamilyRequest(String familyParent, String familyCouple, String familySibling, String familyChild, String familyEtc,

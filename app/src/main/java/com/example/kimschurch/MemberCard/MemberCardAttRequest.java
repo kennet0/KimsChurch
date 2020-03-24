@@ -2,13 +2,14 @@ package com.example.kimschurch.MemberCard;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
+import com.example.kimschurch.Util.Etc;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class MemberCardAttRequest extends StringRequest {
 
-    final static private String URL = "http://112.186.116.16:6011/KimsChurch/MemberCardAtt.php";
+    final static private String URL = Etc.URL+"/KimsChurch/MemberCardAtt.php";
     private Map<String, String>  parameters;
 
     public MemberCardAttRequest(String pnum, String tag ,String count, String search, Response.Listener<String> listener) {

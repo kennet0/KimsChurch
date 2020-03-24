@@ -65,9 +65,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 startActivity(intent);
-//                String body = "sort=name";
-//                String url = "http://112.186.116.16:6011/KimsChurch/Search.php";
-//                new BackgroundTask(url,RegisterActivity.class, body).execute();
             }
         });
 
@@ -95,71 +92,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-
-    class BackgroundTask extends AsyncTask<Void,Void,String> {
-        String target;
-        Class context;
-        String body;
-
-        public BackgroundTask(String target, Class context, String body) {
-            this.target = target;
-            this.context = context;
-            this.body = body;
-        }
-
-        @Override
-        public String doInBackground(Void... voids) {
-
-            try {
-                URL url = new URL(target);
-                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
-                httpURLConnection.setRequestMethod("POST");
-                httpURLConnection.setDoInput(true);
-                httpURLConnection.setDoOutput(true);
-                httpURLConnection.setRequestProperty("Context-type","application/x-www-form-urlencoded");
-
-                OutputStream outputStream = httpURLConnection.getOutputStream();
-                outputStream.write(body.getBytes("UTF-8"));
-
-
-                InputStream inputStream = httpURLConnection.getInputStream();
-                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-
-                outputStream.flush();
-                outputStream.close();
-
-                String temp;
-                StringBuilder stringBuilder = new StringBuilder();
-                while((temp = bufferedReader.readLine())!=null){
-                    stringBuilder.append(temp + "\n");
-                }
-
-                bufferedReader.close();
-                inputStream.close();
-
-                httpURLConnection.disconnect();
-                return stringBuilder.toString().trim();
-
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        public void onProgressUpdate(Void... values){
-            super.onProgressUpdate(values);
-        }
-
-        @Override
-        public void onPostExecute(String result){
-            Intent intent = new Intent(MainActivity.this, context);
-            intent.putExtra("tag",1);
-            intent.putExtra("result", result);
-//            Log.e("result", result);
-            startActivity(intent);
-
-        }
-    }
 }

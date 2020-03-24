@@ -4,13 +4,14 @@ import android.util.Log;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
+import com.example.kimschurch.Util.Etc;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterRequest extends StringRequest {
 
-    final static private String URL = "http://112.186.116.16:6011/KimsChurch/Register.php";
+    final static private String URL = Etc.URL+"/KimsChurch/Register.php";
     private Map<String, String>  parameters;
 
     public RegisterRequest(String image, String pnum, String name, String phone, String sex, String position, String department, String part,

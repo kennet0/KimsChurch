@@ -4,13 +4,14 @@ import android.util.Log;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
+import com.example.kimschurch.Util.Etc;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class AttRequest extends StringRequest {
 
-    final static private String URL = "http://112.186.116.16:6011/KimsChurch/Att.php";
+    final static private String URL = Etc.URL+"/KimsChurch/Att.php";
     private Map<String, String>  parameters;
 
     public AttRequest(String att_department, String att_date, Response.Listener<String> listener) {

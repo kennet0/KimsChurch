@@ -2,13 +2,14 @@ package com.example.kimschurch.Att;
 
 import com.android.volley.Response;
 import com.android.volley.toolbox.StringRequest;
+import com.example.kimschurch.Util.Etc;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class AttUpdateRequest extends StringRequest {
 
-    final static private String URL = "http://112.186.116.16:6011/KimsChurch/AttUpdate.php";
+    final static private String URL = Etc.URL+"/KimsChurch/AttUpdate.php";
     private Map<String, String>  parameters;
 
     public AttUpdateRequest(String pnum, String name, String date, String att1, String att2, String att3, String att4, String att5, Response.Listener<String> listener) {

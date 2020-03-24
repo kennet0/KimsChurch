@@ -47,4 +47,8 @@ public class Etc {
         showdialog.show();
     }
 
+    public static final String URL = "http://112.186.116.16:6011";
+
 }
+
+
